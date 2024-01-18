@@ -20,8 +20,8 @@ void print_counts(int counts[], int len) {
     for (int i = 0; i < len; i++) {
         char letter = index_to_char(i);
         int count = counts[i];
-        if (count > 0) {
-            std::cout << letter << ' ' << count << '\n';
-        }
+        std::cout << letter << ' ' << count << '\n';
     }
+}
+
 }
