@@ -5,7 +5,7 @@ class Stack {
     char buf[STK_MAX];
 
 public:
-    Stack() : _top(-1) {}  // Corrected constructor initialization
+    Stack() : _top(-1) {}
 
     void push(char c) {
         if (!isFull()) {
@@ -17,7 +17,7 @@ public:
         if (!isEmpty()) {
             return buf[_top--];
         }
-        return '\0';  // Return null character if stack is empty
+        return '\0';
     }
 
     char top() {
@@ -27,11 +27,11 @@ public:
         return '\0';
     }
 
-    bool isEmpty() const {  // Corrected method declaration
+    bool isEmpty() const {
         return _top == -1;
     }
 
-    bool isFull() const {  // Corrected method declaration
+    bool isFull() const {
         return _top == STK_MAX - 1;
     }
 };
