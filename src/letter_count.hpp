@@ -24,4 +24,3 @@ void print_counts(int counts[], int len) {
     }
 }
 
-}
