@@ -17,14 +17,14 @@ public:
         if (!isEmpty()) {
             return buf[_top--];
         }
-        return '\0';
+        return '@';
     }
 
     char top() {
         if (!isEmpty()) {
             return buf[_top];
         }
-        return '\0';
+        return '@';
     }
 
     bool isEmpty() const {
