@@ -1,32 +1,19 @@
-#include<iostream>
-using namespace std;
-#include "stack.hpp"
-
-void push_all(Stack& stk, const string& line) {
-    for (char ch : line) {
-        stk.push(ch);
-    }
-}
-
-// Pops all characters from the stack and prints them
-void pop_all(Stack& stk) {
-    while (!stk.isEmpty()) {  // Note the parentheses after isEmpty
-        cout << stk.pop();
-    }
-    cout << endl;  // Print a newline after the reversed string
-}
-
-
+#include <iostream>
+#include <string>
+#include "stack.hpp"  
 
 int main()
 {
-	Stack stk;
-	string line;
-	while (getline(cin, line))
-	{
-		push_all(stk, line);
-		pop_all(stk);
+    Stack stk;         // Declare a Stack object
+    string line;       // Declare a string to hold the input
 
-	}
-	return 0;
+    // Read lines from standard input
+    while (getline(cin, line))
+	
+	{
+        push_all(stk, line);  // Push each character of the line onto the stack
+        pop_all(stk);         // Pop and print each character, reversing the line
+    }
+
+    return 0;  // Program will return 0 when EOF is reached (Control+D)
 }

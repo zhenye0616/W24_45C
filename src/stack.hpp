@@ -1,9 +1,3 @@
-#ifndef STACK_HPP
-#define STACK_HPP
-
-#include <string>
-using std::string;
-
 constexpr int STK_MAX = 1000;
 
 class Stack {
@@ -42,8 +36,17 @@ public:
     }
 };
 
-void push_all(Stack& stk, const string& line);
-void pop_all(Stack& stk);
+void push_all(Stack& stk, const string& line) {
+    for (char ch : line) {
+        stk.push(ch);
+    }
+}
 
-#endif // STACK_HPP
+void pop_all(Stack& stk) {
+    while (!stk.isEmpty()) {
+        cout << stk.pop();
+    }
+    cout << endl;
+}
+
 
