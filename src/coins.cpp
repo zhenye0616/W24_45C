@@ -28,12 +28,17 @@ std::ostream& operator<<(std::ostream& out, const Coins& coins){
 }
 
 Coins Coins::extract_exact_change( const Coins& coins){
-    quarters -= coins.quarters;
-    dimes -= coins.dimes;
-    nickels -= coins.nickels;
-    pennies -= coins.pennies;
-    return coins;
+    if (has_exact_change_for_coins(coins)) {
+            quarters -= coins.quarters;
+            dimes -= coins.dimes;
+            nickels -= coins.nickels;
+            pennies -= coins.pennies;
+
+            return coins;
+    }else
+        return Coins(0, 0, 0, 0);
 }
+   
 
 void Coins::deposit_coins(Coins& coins) {
         quarters += coins.quarters;
@@ -66,13 +71,13 @@ void print_cents(int cents, std::ostream& out) {
 Coins ask_for_coins(std::istream& in, std::ostream& out) {
     int quarters, dimes, nickels, pennies;
 
-    out << "quarters? ";
+    out << "Quarters? ";
     in >> quarters;
-    out << "dimes? ";
+    out << "Dimes? ";
     in >> dimes;
-    out << "nickels? ";
+    out << "Nickels? ";
     in >> nickels;
-    out << "pennies? ";
+    out << "Pennies? ";
     in >> pennies;
 
     return Coins(quarters, dimes, nickels, pennies);
