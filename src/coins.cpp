@@ -88,7 +88,7 @@ void coins_menu(std::istream& in, std::ostream& out) {
     int choice;
 
     do {
-        out << "\nCoins Menu\n";
+        out << "Coins Menu\\s";
         out << "1. Deposit Change\n";
         out << "2. Extract Change\n";
         out << "3. Print Balance\n";
