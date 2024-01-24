@@ -88,12 +88,12 @@ void coins_menu(std::istream& in, std::ostream& out) {
     int choice;
 
     do {
-        out << "\nCoins Menu\n";
-        out << "1. Deposit Change\n";
-        out << "2. Extract Change\n";
-        out << "3. Print Balance\n";
-        out << "4. Exit\n";
-        out << "\nUser Input: ";
+        out << "\nCoins Menu\n\n";
+        out << "1. Deposit Change\n\n";
+        out << "2. Extract Change\n\n";
+        out << "3. Print Balance\n\n";
+        out << "4. Exit\n\n";
+        out << "User Input: \n";
         in >> choice;
 
         switch (choice) {
@@ -114,13 +114,11 @@ void coins_menu(std::istream& in, std::ostream& out) {
                 break;
             }
             case 3: {
-                out << "\nTotal Balance: ";
                 print_cents(myCoins.total_value_in_cents(), out);
                 out << "\n\nThank you!\n";
                 break;
             }
             case 4:
-                out << "\nExiting...\n";
                 break;
             default:
                 out << "\nERROR: Invalid Command\n";
