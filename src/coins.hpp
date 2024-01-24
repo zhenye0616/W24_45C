@@ -16,7 +16,7 @@ public:
 	void deposit_coins(Coins& coins); //done
 	
 
-	bool has_exact_change_for_coins(const Coins&coins) const;
+	bool has_exact_change_for_coins(const Coins&coins) const; //done
 
 	Coins extract_exact_change( const Coins& coins);//done
 
@@ -34,7 +34,7 @@ std::ostream& operator<<(std::ostream& out, const Coins& coins);//done
 
 Coins coins_required_for_cents( int amount_in_cents);//done
 
-void print_cents(int cents, std::ostream& out);
-Coins ask_for_coins(std::istream& in, std::ostream& out);
+void print_cents(int cents, std::ostream& out); //done
+Coins ask_for_coins(std::istream& in, std::ostream& out); 
 void coins_menu(std::istream& in, std::ostream& out); //done
 #endif

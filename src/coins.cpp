@@ -1,5 +1,6 @@
 #include "coins.hpp"
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 void Coins::print(std::ostream& out) const {
@@ -54,9 +55,31 @@ bool Coins::has_exact_change_for_coins(const Coins& coins) const {
            pennies >= coins.pennies;
 }
 
+void print_cents(int cents, std::ostream& out) {
+    int dollars = cents / 100;
+    int remainingCents = cents % 100;
+
+    // Use std::setw and std::setfill to ensure two decimal places for cents
+    out << "$" << dollars << "." << std::setw(2) << std::setfill('0') << remainingCents;
+}
+
+Coins ask_for_coins(std::istream& in, std::ostream& out) {
+    int quarters, dimes, nickels, pennies;
+
+    out << "quarters? ";
+    in >> quarters;
+    out << "dimes? ";
+    in >> dimes;
+    out << "nickels? ";
+    in >> nickels;
+    out << "pennies? ";
+    in >> pennies;
+
+    return Coins(quarters, dimes, nickels, pennies);
+}
 
 void coins_menu(std::istream& in, std::ostream& out) {
-    Coins myCoins(0, 0, 0, 0); // Initialize with zero coins
+    Coins myCoins(0, 0, 0, 0);
     int choice;
 
     do {
@@ -66,36 +89,17 @@ void coins_menu(std::istream& in, std::ostream& out) {
         out << "3. Print Balance\n";
         out << "4. Exit\n";
         out << "\nUser Input: ";
-
         in >> choice;
 
         switch (choice) {
             case 1: {
-                int q, d, n, p;
-                out << "\nQuarters? ";
-                in >> q;
-                out << "Dimes? ";
-                in >> d;
-                out << "Nickels? ";
-                in >> n;
-                out << "Pennies? ";
-                in >> p;
-                Coins deposit_amount(q, d, n, p);
-                myCoins.deposit_coins(deposit_amount);
+                Coins depositAmount = ask_for_coins(in, out);
+                myCoins.deposit_coins(depositAmount);
                 out << "\nThank you!\n";
                 break;
             }
             case 2: {
-                int q, d, n, p;
-                out << "\nQuarters? ";
-                in >> q;
-                out << "Dimes? ";
-                in >> d;
-                out << "Nickels? ";
-                in >> n;
-                out << "Pennies? ";
-                in >> p;
-                Coins extractionRequest(q, d, n, p);
+                Coins extractionRequest = ask_for_coins(in, out);
                 if (myCoins.has_exact_change_for_coins(extractionRequest)) {
                     myCoins.extract_exact_change(extractionRequest);
                     out << "\nThank you!\n";
@@ -105,22 +109,17 @@ void coins_menu(std::istream& in, std::ostream& out) {
                 break;
             }
             case 3: {
-                int totalCents = myCoins.total_value_in_cents();
-                out << "\nTotal Balance: $" << (totalCents / 100) << ".";
-                if (totalCents % 100 < 10) {
-                    out << "0";
-                }
-                out << (totalCents % 100) << "\n\nThank you!\n";
+                out << "\nTotal Balance: ";
+                print_cents(myCoins.total_value_in_cents(), out);
+                out << "\n\nThank you!\n";
                 break;
             }
-            case 4: {
+            case 4:
                 out << "\nExiting...\n";
                 break;
-            }
-            default: {
+            default:
                 out << "\nERROR: Invalid Command\n";
                 break;
-            }
         }
     } while (choice != 4);
 }
