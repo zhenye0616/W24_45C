@@ -9,25 +9,21 @@ TEST(WordCount, ToLowercase) {
     EXPECT_EQ(test, "hello world");
 }
 
-//TEST(WordCount, LoadStopWords) {
-    //std::istringstream stopwords_stream("a\nan\nthe\nand");
-    //auto stopwords = load_stopwords(stopwords_stream);
-    //EXPECT_EQ(stopwords.size(), 4);
-    //EXPECT_TRUE(stopwords.find("a") != stopwords.end());
-    //EXPECT_TRUE(stopwords.find("an") != stopwords.end());
-    //EXPECT_TRUE(stopwords.find("the") != stopwords.end());
-    //EXPECT_TRUE(stopwords.find("and") != stopwords.end());}
-
 TEST(WordCount, CountWords) {
     std::stringstream test("and the of");
     std::set<std::string> stopwords{"and", "the", "of"};
     auto counts = count_words(test, stopwords);
     EXPECT_TRUE(counts.empty());}
 
+//TEST(WordCount, LoadStopWords) {
+    //std::stringstream test("");
+    //auto stop_words = load_stopwords(test);
+    //EXPECT_TRUE(stop_words.empty());}
+
 TEST(WordCount, LoadStopWords) {
-    std::stringstream test("");
+    std::stringstream test("hello\nworld\nhello");
     auto stop_words = load_stopwords(test);
-    EXPECT_TRUE(stop_words.empty());
+    EXPECT_EQ(stop_words.size(), 2);
 }
 
 TEST(WordCount, OutputWordCounts) {
