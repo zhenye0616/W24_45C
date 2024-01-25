@@ -65,7 +65,7 @@ void print_cents(int cents, std::ostream& out) {
     int remainingCents = cents % 100;
 
     // Use std::setw and std::setfill to ensure two decimal places for cents
-    out << "\n$" << dollars << "." << std::setw(2) << std::setfill('0') << remainingCents << endl;
+    out << "$" << dollars << "." << std::setw(2) << std::setfill('0') << remainingCents;
 }
 
 Coins ask_for_coins(std::istream& in, std::ostream& out) {
