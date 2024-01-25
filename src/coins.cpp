@@ -71,7 +71,7 @@ void print_cents(int cents, std::ostream& out) {
 Coins ask_for_coins(std::istream& in, std::ostream& out) {
     int quarters, dimes, nickels, pennies;
 
-    out << "\nQuarters? ";
+    out << "Quarters? ";
     in >> quarters;
     out << "Dimes? ";
     in >> dimes;
@@ -82,6 +82,7 @@ Coins ask_for_coins(std::istream& in, std::ostream& out) {
 
     return Coins(quarters, dimes, nickels, pennies);
 }
+
 
 void coins_menu(std::istream& in, std::ostream& out) {
     Coins myCoins(0, 0, 0, 0);
