@@ -20,10 +20,13 @@ TEST(WordCount, LoadStopWords) {
 }
 
 TEST(WordCount, CountWords) {
-    std::stringstream test("and the of");
-    std::set<std::string> stopwords{"and", "the", "of"};
+    std::stringstream test("hello, world! hello-world.");
+    std::set<std::string> stopwords;
     auto counts = count_words(test, stopwords);
-    EXPECT_TRUE(counts.empty());
+
+    EXPECT_EQ(counts["hello,"], 1);
+    EXPECT_EQ(counts["world!"], 1);
+    EXPECT_EQ(counts["hello-world."], 1);
 }
 
 TEST(WordCount, OutputWordCounts) {
