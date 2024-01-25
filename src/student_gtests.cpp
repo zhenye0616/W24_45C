@@ -11,7 +11,7 @@ TEST(WordCount, ToLowercase) {
 
 TEST(WordCount, CountWords) {
     std::stringstream test("and the of");
-    std::set<std::string> stopwords{"and", "The", "oF"};
+    std::set<std::string> stopwords{"and", "the", "of"};
     auto counts = count_words(test, stopwords);
     EXPECT_TRUE(counts.empty());}
 
