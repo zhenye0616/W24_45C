@@ -9,7 +9,9 @@
 void to_lowercase(std::string& str);
 
 std::set<std::string> load_stopwords(std::istream& stopwords);
+
 std::map<std::string, int> count_words(std::istream& document, const std::set<std::string>& stopwords);
+
 void output_word_counts(const std::map<std::string, int>& word_counts, std::ostream& output);
 
 #endif
