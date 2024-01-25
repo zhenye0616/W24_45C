@@ -65,13 +65,13 @@ void print_cents(int cents, std::ostream& out) {
     int remainingCents = cents % 100;
 
     // Use std::setw and std::setfill to ensure two decimal places for cents
-    out << "$" << dollars << "." << std::setw(2) << std::setfill('0') << remainingCents;
+    out << "\n$" << dollars << "." << std::setw(2) << std::setfill('0') << remainingCents << endl;
 }
 
 Coins ask_for_coins(std::istream& in, std::ostream& out) {
     int quarters, dimes, nickels, pennies;
 
-    out << "Quarters? ";
+    out << "\nQuarters? ";
     in >> quarters;
     out << "Dimes? ";
     in >> dimes;
@@ -86,42 +86,41 @@ Coins ask_for_coins(std::istream& in, std::ostream& out) {
 void coins_menu(std::istream& in, std::ostream& out) {
     Coins myCoins(0, 0, 0, 0);
     int choice;
-
+    out << "Coins Menu" << endl; 
     do {
-        out << "Coins Menu\\s";
-        out << "1. Deposit Change\n";
-        out << "2. Extract Change\n";
-        out << "3. Print Balance\n";
-        out << "4. Exit\n";
-        out << "User Input: ";
+        out << "\n1. Deposit Change" << endl;
+        out << "2. Extract Change" << endl;
+        out << "3. Print Balance" << endl;
+        out << "4. Exit\n" << endl;
+        out << "User Input: "; 
         in >> choice;
 
         switch (choice) {
             case 1: {
                 Coins depositAmount = ask_for_coins(in, out);
                 myCoins.deposit_coins(depositAmount);
-                out << "\nThank you!\n";
+                out << "\nThank you!" << endl;
                 break;
             }
             case 2: {
                 Coins extractionRequest = ask_for_coins(in, out);
+                out << "\nThank you!" << endl;
                 if (myCoins.has_exact_change_for_coins(extractionRequest)) {
                     myCoins.extract_exact_change(extractionRequest);
-                    out << "\nThank you!\n";
                 } else {
-                    out << "\nERROR: Insufficient Funds\n";
+                    out << "\nERROR: Insufficient Funds" << endl;
                 }
                 break;
             }
             case 3: {
                 print_cents(myCoins.total_value_in_cents(), out);
-                out << "\n\nThank you!\n";
+                out << "\nThank you!" << endl;
                 break;
             }
             case 4:
                 break;
             default:
-                out << "\nERROR: Invalid Command\n";
+                out << "\nERROR: Invalid Command" << endl;
                 break;
         }
     } while (choice != 4);
