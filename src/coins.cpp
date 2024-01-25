@@ -41,10 +41,17 @@ Coins Coins::extract_exact_change( const Coins& coins){
    
 
 void Coins::deposit_coins(Coins& coins) {
+        
         quarters += coins.quarters;
         dimes += coins.dimes;
         nickels += coins.nickels;
         pennies += coins.pennies;
+    
+    
+        coins.quarters = 0;
+        coins.dimes = 0;
+        coins.nickels = 0;
+        coins.pennies = 0;
 }
 
 int Coins::total_value_in_cents() const {

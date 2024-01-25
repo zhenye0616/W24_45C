@@ -10,7 +10,7 @@ constexpr int CENTS_PER_NICKEL = 5;
 class Coins{
 public:
 	
-	 Coins(int q, int d, int n, int p) : quarters(q), dimes(d), nickels(n), pennies(p) {}
+	Coins(int q, int d, int n, int p) : quarters(q), dimes(d), nickels(n), pennies(p) {}
 
 
 	void deposit_coins(Coins& coins); //done

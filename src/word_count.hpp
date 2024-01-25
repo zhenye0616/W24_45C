@@ -1,5 +1,5 @@
 #ifndef WORD_COUNT_HPP
-#define WORD_CONNT_HPP
+#define WORD_COUNT_HPP
 
 #include <iosfwd>
 #include <map>
@@ -9,7 +9,7 @@
 void to_lowercase(std::string& str);
 
 std::set<std::string> load_stopwords(std::istream& stopwords);
-std::map<std::string, int> count_words(std::istream& document, const std::se<std::string>& stopwords);
+std::map<std::string, int> count_words(std::istream& document, const std::set<std::string>& stopwords);
 void output_word_counts(const std::map<std::string, int>& word_counts, std::ostream& output);
 
 #endif
