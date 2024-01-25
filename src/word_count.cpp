@@ -43,3 +43,4 @@ void output_word_counts(const std::map<std::string, int>& word_counts, std::ostr
         output << pair.first << " " << pair.second << std::endl;
     }
 }
+
