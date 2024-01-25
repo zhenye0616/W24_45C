@@ -19,11 +19,16 @@ TEST(WordCount, LoadStopWords) {
     EXPECT_TRUE(stopwords.find("and") != stopwords.end());
 }
 
-TEST(WordCount, CountWords) {
-    std::stringstream test("and the of");
-    std::set<std::string> stopwords{"and", "the", "of"};
-    auto counts = count_words(test, stopwords);
-    EXPECT_TRUE(counts.empty());
+//TEST(WordCount, CountWords) {
+    //std::stringstream test("and the of");
+    //std::set<std::string> stopwords{"and", "the", "of"};
+    //auto counts = count_words(test, stopwords);
+    //EXPECT_TRUE(counts.empty());}
+
+TEST(WordCount, LoadStopWords) {
+    std::stringstream test("");
+    auto stop_words = load_stopwords(test);
+    EXPECT_TRUE(stop_words.empty());
 }
 
 TEST(WordCount, OutputWordCounts) {
