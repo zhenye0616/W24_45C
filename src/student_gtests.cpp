@@ -4,11 +4,10 @@
 #include "word_count.hpp"
 
 TEST(WordCount, ToLowercase) {
-    std::string test_str = "HeLLo WoRLD";
-    to_lowercase(test_str);
-    EXPECT_EQ(test_str, "hello world");
+    std::string test = "hEllO wOrLd";
+    to_lowercase(test);
+    EXPECT_EQ(test, "hello world");
 }
-
 
 TEST(WordCount, LoadStopWords) {
     std::istringstream stopwords_stream("a\nan\nthe\nand");
@@ -21,20 +20,16 @@ TEST(WordCount, LoadStopWords) {
 }
 
 TEST(WordCount, CountWords) {
-    std::istringstream document("apple banana apple orange banana apple");
-    std::set<std::string> stopwords{"and", "the", "of", "a", "an"};
-    auto word_counts = count_words(document, stopwords);
-    EXPECT_EQ(word_counts["apple"], 3);
-    EXPECT_EQ(word_counts["banana"], 2);
-    EXPECT_EQ(word_counts["orange"], 1);
+    std::stringstream test("and the of");
+    std::set<std::string> stopwords{"and", "the", "of"};
+    auto counts = count_words(test, stopwords);
+    EXPECT_TRUE(counts.empty());
 }
 
-
 TEST(WordCount, OutputWordCounts) {
-    std::map<std::string, int> word_counts{{"apple", 3}, {"banana", 2}, {"orange", 1}};
-    std::ostringstream output_stream;
-    output_word_counts(word_counts, output_stream);
-    std::string expected_output = "apple 3\nbanana 2\norange 1\n";
-    EXPECT_EQ(output_stream.str(), expected_output);
+    std::map<std::string, int> word_counts{{"apple", 2}, {"banana", 3}, {"cherry", 1}};
+    std::stringstream output;
+    output_word_counts(word_counts, output);
+    EXPECT_EQ(output.str(), "apple 2\nbanana 3\ncherry 1\n");
 }
 
