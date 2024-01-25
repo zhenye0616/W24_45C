@@ -22,14 +22,13 @@ std::set<std::string> load_stopwords(std::istream& stopwords_stream) {
 }
 
 
+
 std::map<std::string, int> count_words(std::istream& document, const std::set<std::string>& stopwords) {
     std::map<std::string, int> word_count;
     std::string word;
 
     while (document >> word) {
         to_lowercase(word);
-
-        // If the word is not a stopword, count it
         if (stopwords.find(word) == stopwords.end()) {
             ++word_count[word];
         }
@@ -37,6 +36,7 @@ std::map<std::string, int> count_words(std::istream& document, const std::set<st
 
     return word_count;
 }
+
 
 void output_word_counts(const std::map<std::string, int>& word_counts, std::ostream& output) {
     for (const auto& pair : word_counts) {
