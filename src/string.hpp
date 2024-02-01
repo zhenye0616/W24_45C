@@ -16,7 +16,7 @@ public:
 
 	char &operator[](int index);
 
-	int size(); //done
+	int size() const; //done
 
 	String reverse();
 

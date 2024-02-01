@@ -57,7 +57,10 @@ void String::print(std::ostream &out) const {
 }
 
 void String::read(std::istream &in) {
-    in.getline(buf, MAXLEN);
+    char temp[MAXLEN];
+    in.getline(temp, MAXLEN);
+    temp[MAXLEN - 1] = '\0';
+    String::strncpy(buf, temp, MAXLEN);
 }
 
 
@@ -151,7 +154,7 @@ void String::reverse_cpy(char* dest, const char* src) {
         dest[length] = '\0'; // Null-terminate the resulting string
     }
 
-String String::reverse() const{
+String String::reverse() {
     String reversed; 
     int length = String::strlen(buf);
     int maxLength = length < MAXLEN ? length : MAXLEN - 1;
@@ -206,7 +209,7 @@ bool String::operator>=(const String &s) const {
 }
 
 // Concatenation operator
-String String::operator+(const String &s) const{
+String String::operator+(const String &s) {
     String newString;
     String::strcpy(newString.buf, buf); // Copy the current string
     String::strncat(newString.buf, s.buf, MAXLEN - String::strlen(newString.buf) - 1); // Concatenate the parameter string
@@ -223,7 +226,8 @@ String &String::operator+=(const String &s) {
         delete[] temp;
     } else {
         String::strncat(buf, s.buf, MAXLEN - String::strlen(buf) - 1);
-    }  
+    }
+    
     return *this;
 }
 
@@ -237,7 +241,7 @@ std::istream &operator>>(std::istream &in, String &s) {
     return in;
 }
 
-int String::indexOf(char c) const{
+int String::indexOf(char c) {
     // Use the static strchr function to find 'c' in 'buf'
     const char* found = String::strchr(buf, c);
     if (found) {
