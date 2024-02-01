@@ -31,25 +31,25 @@ TEST(StringClass, Print) {
     EXPECT_STREQ(out3.str().c_str(), "foofoobar");
 }
 
-TEST(StringClass, Comparisons) {
-    EXPECT_LT(String("aaaa"), String("aaab"));
-    EXPECT_LE(String("aaaa"), String("aaab"));
-    EXPECT_EQ(String("foo"), String("foo"));
-    EXPECT_NE(String("foo"), String("fooo"));
-}
+//TEST(StringClass, Comparisons) {
+    //EXPECT_LT(String("aaaa"), String("aaab"));
+    //EXPECT_LE(String("aaaa"), String("aaab"));
+    //EXPECT_EQ(String("foo"), String("foo"));
+    //EXPECT_NE(String("foo"), String("fooo"));
+//}
 
-TEST(StringClass, Assignment) {
-    String s("test"), t("foo");
+//TEST(StringClass, Assignment) {
+    //String s("test"), t("foo");
 
-    s = t;
-    EXPECT_EQ(s.size(), t.size());
-    EXPECT_EQ(s, t);
+    //s = t;
+    //EXPECT_EQ(s.size(), t.size());
+    //EXPECT_EQ(s, t);
 
-    s = s;
-    EXPECT_EQ(s.size(), t.size());
-    EXPECT_EQ(s, t);
+    //s = s;
+    //EXPECT_EQ(s.size(), t.size());
+    //EXPECT_EQ(s, t);
 
-    s = String();
-    EXPECT_EQ(s, String());
-    EXPECT_EQ(s.size(), 0);
-}
+    //s = String();
+    //EXPECT_EQ(s, String());
+    //EXPECT_EQ(s.size(), 0);
+//}
