@@ -60,7 +60,9 @@ void String::read(std::istream &in) {
     char temp[MAXLEN];
     in.getline(temp, MAXLEN);
     temp[MAXLEN - 1] = '\0';
-    String::strncpy(buf, temp, MAXLEN);
+    int inputLength = String::strlen(temp);
+    String::strncpy(buf, temp, std::min(inputLength + 1, MAXLEN)); 
+    buf[MAXLEN - 1] = '\0';
 }
 
 
@@ -177,7 +179,7 @@ String &String::operator=(const String &s) {
 // Subscript operator for const Strings
 const char &String::operator[](int index) const{
     if (!in_bounds(index)) {
-        throw std::out_of_range("Index out of bounds");
+        std::count << "Index out of bounds";
     }
     return buf[index];
 }
