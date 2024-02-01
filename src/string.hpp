@@ -8,9 +8,9 @@ constexpr int MAXLEN = 1024;
 class String{
 public:
 
-	explicit String(const char *s =""); 
+	explicit String(const char *s =""); //done
 
-	String(const String&s);
+	String(const String&s);//done
 
 	String &operator=(const String&s);
 
@@ -37,9 +37,9 @@ public:
 
 	void print(std::ostream &out) const; //done
 
-	void read(std::istream &in);
+	void read(std::istream &in);//done
 
-	~String();
+	~String();//done
 
 	bool in_bound( int i){
 		return i >= 0 && i < strlen(buf);
@@ -49,13 +49,13 @@ public:
 	static int strlen(const char *s);//done
 	static char *strcpy(char *dest, const char *src);//done
 	static char *strncpy(char *dest, const char *src, int n);//done
-	static char *strcat(char *dest, const char *src);
-	static char *strncat(char *dest, const char *src, int n);
-	static int strcmp(const char *left, char *right);
-	static int strncmp(const char *left, char *right, int n);
-	static void reverse_cpy(char *dest, const char *src);
-	static const char *strchr(const char *srt, char c);
-	static const char *strstr(const char *haystack, const char *needle);
+	static char *strcat(char *dest, const char *src);//done
+	static char *strncat(char *dest, const char *src, int n);//done
+	static int strcmp(const char *left, char *right);//done
+	static int strncmp(const char *left, char *right, int n);//done
+	static void reverse_cpy(char *dest, const char *src);//done
+	static const char *strchr(const char *srt, char c);//done
+	static const char *strstr(const char *haystack, const char *needle);//done
 
 private:
 	char buf[MAXLEN];

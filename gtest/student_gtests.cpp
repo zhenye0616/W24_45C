@@ -30,30 +30,53 @@ TEST(StringFunction, strncpy) {
 }
 
 
-//TEST(StringFunction, strcat) {
-    //EXPECT_TRUE(false);
-//}
+TEST(StringFunction, strcat) {
+    char destination[20] = "Hello, ";
+    const char* source = "World!";
+    strcat(destination, source);
+    EXPECT_STREQ(destination, "Hello, World!");
+}
 
-//TEST(StringFunction, strncat) {
-//    EXPECT_TRUE(false);
-//}
+TEST(StringFunction, strncat) {
+    char destination[20] = "Hello, ";
+    const char* source = "World!";
+    size_t n = 3; // Maximum number of characters to concatenate
+    strncat(destination, source, n);
+    EXPECT_STREQ(destination, "Hello, Wor"); // Compare as C-strings
+}
 
-//TEST(StringFunction, strcmp) {
-  //  EXPECT_TRUE(false);
-//}
+TEST(StringFunction, strcmp) {
+    const char* str1 = "abc";
+    const char* str2 = "abd";
+    int result = strcmp(str1, str2);
+    EXPECT_LT(result, 0); // Expect str1 < str2
+}
 
-//TEST(StringFunction, strncmp) {
-//    EXPECT_TRUE(false);
-//}
+TEST(StringFunction, strncmp) {
+    const char* str1 = "abc";
+    const char* str2 = "abd";
+    int result = strncmp(str1, str2, 2); // Only compare first 2 characters
+    EXPECT_EQ(result, 0); // Expect str1 and str2 to be equal for the first 2 characters
+}
 
-//TEST(StringFunction, reverse_cpy) {
-//    EXPECT_TRUE(false);
-//}
+TEST(StringFunction, strchr) {
+    const char* str = "Hello, World!";
+    char c = 'W';
+    const char* result = String::strchr(str, c);
+    EXPECT_EQ(result, str + 7); // Expect result to point to 'W' in the string
+}
 
-//TEST(StringFunction, strchr) {
-//    EXPECT_TRUE(false);
-//}
+TEST(StringFunction, strstr) {
+    const char* haystack = "Hello, World!";
+    const char* needle = "World";
+    const char* result = String::strstr(haystack, needle);
+    EXPECT_STREQ(result, "World!"); // Compare as C-strings
+}
 
-//TEST(StringFunction, strstr) {
-//    EXPECT_TRUE(false);
-//}
+TEST(StringFunction, reverse_cpy) {
+    const char* original = "Hello";
+    char reversed[6];
+    String::reverse_cpy(reversed, original);
+    EXPECT_STREQ(reversed, "olleH"); // Compare as C-strings
+}
+
