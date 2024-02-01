@@ -174,14 +174,14 @@ String &String::operator=(const String &s) {
     return *this;
 }
 
-// Subscript operator for non-const Strings
-char &String::operator[](int index) {
+// Subscript operator for const Strings
+char String::operator[](int index) const {
     if (!in_bound(index)) {
-        // Handle the error, e.g., throw an exception or terminate the program
         throw std::out_of_range("Index out of bounds");
     }
     return buf[index];
 }
+
 
 // Comparison operators
 bool String::operator==(const String &s) const {
@@ -265,7 +265,3 @@ int String::indexOf(const String &s) const{
         return -1;
     }
 }
-
-bool String::in_bound( int i) const{
-		return i >= 0 && i < strlen(buf);
-	}
