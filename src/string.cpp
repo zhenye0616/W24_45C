@@ -68,16 +68,24 @@ void String::read(std::istream &in) {
 
 
 char* String::strcat(char* dest, const char* src) {
-        char* result = dest; // Save the original 'dest' pointer
-        while (*dest) {
-            ++dest; // Move 'dest' to the end of the string
-        }
-        while (*src) {
-            *dest++ = *src++; // Copy characters from 'src' to 'dest'
-        }
-        *dest = '\0'; // Null-terminate the resulting string
-        return result;
+    char* result = dest; // Save the original 'dest' pointer
+
+    // Move 'dest' to the end of the destination string
+    while (*dest) {
+        ++dest;
     }
+    while (*src) {
+        if (dest - result >= MAXLEN - 1) {
+            std::cerr << "Error: Exceeds maximum length";
+            return result;
+        }
+        *dest++ = *src++;
+    }
+    *dest = '\0';
+
+    return result;
+}
+
 
 
 char* String::strncat(char* dest, const char* src, int n) {
