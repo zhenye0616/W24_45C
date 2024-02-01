@@ -113,14 +113,13 @@ int String::strncmp(const char* left, const char* right, int n) {
 
 
 const char* String::strchr(const char* s, char c) {
-        while (*s) {
-            if (*s == c) {
-                return s;
-            }
-            ++s;
+    do {
+        if (*s == c) {
+            return s;
         }
-        return nullptr; // Character not found
-    }
+    } while (*s++); 
+    return nullptr;
+}
 
 
     // Implementation of strstr
