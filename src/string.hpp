@@ -18,9 +18,9 @@ public:
 
 	int size() const; //done
 
-	String reverse();
+	String reverse() const;
 
-	int indexOf(char c);
+	int indexOf(char c) const;
 
 	int indexOf(const String &s);
 
@@ -31,7 +31,7 @@ public:
 	bool operator<=(const String &s) const; 
 	bool operator>=(const String &s) const;
 
-	String operator+(const String &s);
+	String operator+(const String &s) const;
 
 	String &operator+=(const String &s);
 
@@ -41,7 +41,7 @@ public:
 
 	~String();//done
 
-	bool in_bound( int i){
+	bool in_bound( int i) const{
 		return i >= 0 && i < strlen(buf);
 	}
 
