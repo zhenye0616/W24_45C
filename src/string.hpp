@@ -51,8 +51,8 @@ public:
 	static char *strncpy(char *dest, const char *src, int n);//done
 	static char *strcat(char *dest, const char *src);//done
 	static char *strncat(char *dest, const char *src, int n);//done
-	static int strcmp(const char *left, char *right);//done
-	static int strncmp(const char *left, char *right, int n);//done
+	static int strcmp(const char *left, const char *right);//done
+	static int strncmp(const char *left, const char *right, int n);//done
 	static void reverse_cpy(char *dest, const char *src);//done
 	static const char *strchr(const char *srt, char c);//done
 	static const char *strstr(const char *haystack, const char *needle);//done

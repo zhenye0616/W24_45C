@@ -61,10 +61,6 @@ void String::read(std::istream &in) {
     in.getline(buf, MAXLEN);
 }
 
-std::ostream &operator <<(std::ostream &out, const String &s){
-    s.print(out);
-    return out;
-}
 
 
 char* String::strcat(char* dest, const char* src) {
@@ -92,7 +88,7 @@ char* String::strncat(char* dest, const char* src, int n) {
         return result;
     }
 
-int String::strcmp(const char* left, char* right) {
+int String::strcmp(const char* left, const char* right) {
         while (*left != '\0' && *right != '\0' && *left == *right) {
             ++left;
             ++right;
@@ -102,7 +98,7 @@ int String::strcmp(const char* left, char* right) {
     }
 
 
-int String::strncmp(const char* left, char* right, int n) {
+int String::strncmp(const char* left, const char* right, int n) {
         while (*left != '\0' && *right != '\0' && n > 0 && *left == *right) {
             ++left;
             ++right;
@@ -156,3 +152,97 @@ void String::reverse_cpy(char* dest, const char* src) {
         }
         dest[length] = '\0'; // Null-terminate the resulting string
     }
+
+
+
+// Assignment operator
+String &String::operator=(const String &s) {
+    if (this != &s) { // Check for self-assignment
+        String::strcpy(buf, s.buf);
+    }
+    return *this;
+}
+
+// Subscript operator for non-const Strings
+char &String::operator[](int index) {
+    if (!in_bound(index)) {
+        // Handle the error, e.g., throw an exception or terminate the program
+        throw std::out_of_range("Index out of bounds");
+    }
+    return buf[index];
+}
+
+// Comparison operators
+bool String::operator==(const String &s) const {
+    return String::strcmp(buf, s.buf) == 0;
+}
+
+bool String::operator!=(const String &s) const {
+    return String::strcmp(buf, s.buf) != 0;
+}
+
+bool String::operator>(const String &s) const {
+    return String::strcmp(buf, s.buf) > 0;
+}
+
+bool String::operator<(const String &s) const {
+    return String::strcmp(buf, s.buf) < 0;
+}
+
+bool String::operator<=(const String &s) const {
+    return String::strcmp(buf, s.buf) <= 0;
+}
+
+bool String::operator>=(const String &s) const {
+    return String::strcmp(buf, s.buf) >= 0;
+}
+
+// Concatenation operator
+String String::operator+(const String &s) {
+    String newString;
+    String::strcpy(newString.buf, buf); // Copy the current string
+    String::strncat(newString.buf, s.buf, MAXLEN - String::strlen(newString.buf) - 1); // Concatenate the parameter string
+    return newString;
+}
+
+// Concatenation-assignment operator
+String &String::operator+=(const String &s) {
+    String::strncat(buf, s.buf, MAXLEN - String::strlen(buf) - 1);
+    return *this;
+}
+
+
+std::ostream &operator <<(std::ostream &out, const String &s){
+    s.print(out);
+    return out;
+}
+
+std::istream &operator>>(std::istream &in, String &s) {
+    s.read(in);
+    return in;
+}
+
+int String::indexOf(char c) {
+    // Use the static strchr function to find 'c' in 'buf'
+    const char* found = String::strchr(buf, c);
+    if (found) {
+        // If found, calculate the index
+        return found - buf;
+    } else {
+        // Return -1 if the character is not found
+        return -1;
+    }
+}
+
+// Find the first occurrence of a String in the string
+int String::indexOf(const String &s) {
+    // Use the static strstr function to find 's' in 'buf'
+    const char* found = String::strstr(buf, s.buf);
+    if (found) {
+        // If found, calculate the index
+        return found - buf;
+    } else {
+        // Return -1 if the substring is not found
+        return -1;
+    }
+}
