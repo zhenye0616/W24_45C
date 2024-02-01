@@ -58,34 +58,29 @@ void String::print(std::ostream &out) const {
 
 void String::read(std::istream &in) {
     char temp[MAXLEN];
-    in.getline(temp, MAXLEN);
-    temp[MAXLEN - 1] = '\0';
-    int inputLength = String::strlen(temp);
-    String::strncpy(buf, temp, std::min(inputLength + 1, MAXLEN)); 
-    buf[MAXLEN - 1] = '\0';
+    if (in >> temp) { // Read a single word
+        temp[MAXLEN - 1] = '\0'; // Ensure null-termination
+        int inputLength = String::strlen(temp);
+        String::strncpy(buf, temp, std::min(inputLength + 1, MAXLEN));
+        buf[MAXLEN - 1] = '\0'; // Ensure buf is null-terminated
+    } else {
+        buf[0] = '\0';
+    }
 }
 
 
 
 char* String::strcat(char* dest, const char* src) {
-    char* result = dest; // Save the original 'dest' pointer
-
-    // Move 'dest' to the end of the destination string
-    while (*dest) {
-        ++dest;
-    }
-    while (*src) {
-        if (dest - result >= MAXLEN - 1) {
-            std::cerr << "Error: Exceeds maximum length";
-            return result;
+        char* result = dest; // Save the original 'dest' pointer
+        while (*dest) {
+            ++dest; // Move 'dest' to the end of the string
         }
-        *dest++ = *src++;
+        while (*src) {
+            *dest++ = *src++; // Copy characters from 'src' to 'dest'
+        }
+        *dest = '\0'; // Null-terminate the resulting string
+        return result;
     }
-    *dest = '\0';
-
-    return result;
-}
-
 
 
 char* String::strncat(char* dest, const char* src, int n) {
