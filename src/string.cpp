@@ -254,7 +254,7 @@ int String::indexOf(char c) const{
 }
 
 // Find the first occurrence of a String in the string
-int String::indexOf(const String &s) {
+int String::indexOf(const String &s) const{
     // Use the static strstr function to find 's' in 'buf'
     const char* found = String::strstr(buf, s.buf);
     if (found) {

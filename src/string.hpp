@@ -22,7 +22,7 @@ public:
 
 	int indexOf(char c) const;
 
-	int indexOf(const String &s);
+	int indexOf(const String &s) const;
 
 	bool operator==(const String &s) const; 
 	bool operator!=(const String &s) const;
