@@ -20,12 +20,11 @@ String::String(const String &s) {
 
 char *String::strncpy(char *dest, const char *src, int n) {
     int i;
-    for (i = 0; i < n && src[i] != '\0'; i++) {
+    for (i = 0; i < n - 1 && src[i] != '\0'; i++) {
         dest[i] = src[i];
     }
-    for (; i < n; i++) {
-        dest[i] = '\0'; // Pad with null characters if needed
-    }
+    dest[i] = '\0'; // Ensure null-termination
+
     return dest;
 }
 
