@@ -265,3 +265,7 @@ int String::indexOf(const String &s) const{
         return -1;
     }
 }
+
+bool String::in_bound( int i) const{
+		return i >= 0 && i < strlen(buf);
+	}
