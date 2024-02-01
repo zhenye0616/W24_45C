@@ -153,7 +153,18 @@ void String::reverse_cpy(char* dest, const char* src) {
         dest[length] = '\0'; // Null-terminate the resulting string
     }
 
+String String::reverse() {
+    String reversed; 
+    int length = String::strlen(buf);
+    // Ensure the reversed string does not exceed MAXLEN
+    int maxLength = length < MAXLEN ? length : MAXLEN - 1;
+    for (int i = 0; i < maxLength; ++i) {
+        reversed.buf[i] = buf[length - 1 - i]; // Copy characters in reverse order
+    }
+    reversed.buf[maxLength] = '\0'; // Null-terminate the reversed string
 
+    return reversed;
+}
 
 // Assignment operator
 String &String::operator=(const String &s) {
