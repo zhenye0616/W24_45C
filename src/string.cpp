@@ -215,10 +215,17 @@ String String::operator+(const String &s) {
 
 // Concatenation-assignment operator
 String &String::operator+=(const String &s) {
-    String::strncat(buf, s.buf, MAXLEN - String::strlen(buf) - 1);
+    if (this == &s) {
+        char *temp = new char[String::strlen(s.buf) + 1];
+        String::strcpy(temp, s.buf);
+
+        String::strncat(buf, temp, MAXLEN - String::strlen(buf) - 1);
+        delete[] temp;
+    } else {
+        String::strncat(buf, s.buf, MAXLEN - String::strlen(buf) - 1);
+    }  
     return *this;
 }
-
 
 std::ostream &operator <<(std::ostream &out, const String &s){
     s.print(out);
