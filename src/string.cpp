@@ -175,8 +175,8 @@ String &String::operator=(const String &s) {
 }
 
 // Subscript operator for const Strings
-char String::operator[](int index) const {
-    if (!in_bound(index)) {
+const char &String::operator[](int index) const{
+    if (!in_bounds(index)) {
         throw std::out_of_range("Index out of bounds");
     }
     return buf[index];
