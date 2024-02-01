@@ -14,7 +14,7 @@ public:
 
 	String &operator=(const String&s);
 
-	char &operator[](int index);
+	char &operator[](int index)const;
 
 	int size() const; //done
 
@@ -41,7 +41,7 @@ public:
 
 	~String();//done
 
-	bool in_bound( int i) const{
+	bool in_bound( int i) {
 		return i >= 0 && i < strlen(buf);
 	}
 
