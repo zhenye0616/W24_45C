@@ -14,10 +14,10 @@ public:
     // construct this string by moving from string s
     // String(String &&s);
     // swap buf between this string and s using std::swap, explained later
-    void swap(String &s);
+    void swap(String &s);//done
 
     // assignment operator from one string, s, to this string
-    String &operator=(String s);
+    String &operator=(String s);//done
 
     // assign to this string by moving from string s
     // String &operator=(String &&s);

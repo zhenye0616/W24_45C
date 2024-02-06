@@ -1,5 +1,6 @@
 #include <iostream>
 #include "string.hpp"
+#include <stdexcept> 
 using namespace std;
 
 
@@ -14,6 +15,26 @@ String::String(const char *s) {
     buf = new char[String::strlen(s) + 1]; // +1 for null-terminator
     strcpy(buf, s);
 }
+
+void String::swap(String &s) {
+    std::swap(buf, s.buf);
+}
+
+String &String::operator=(String s) {
+    swap(s); 
+    return *this; 
+}
+
+
+const char &String::operator[](int index) const {
+    if (!in_bounds(index)) {
+        throw std::out_of_range("Index out of bounds");
+    }
+    return buf[index];
+}
+
+
+
 //static methods:
 
 int String::strlen(const char *s) {
@@ -142,6 +163,8 @@ const char* String::strstr(const char* haystack, const char* needle) {
 
         return nullptr; // Substring not found
     }
+
+
 
 
 

@@ -23,7 +23,7 @@ TEST(StringFunction, strcpy) {
     EXPECT_STREQ(result, "");
 }
 
-TEST(StringFunction, Strdup) {
+TEST(StringFunction, strdup) {
     const char* original = "Test string";
     char* duplicated = String::strdup(original);
     EXPECT_STREQ(original, duplicated) << "The duplicated string does not match the original";
