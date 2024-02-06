@@ -16,6 +16,14 @@ String::String(const char *s) {
     strcpy(buf, s);
 }
 
+String::String(const String &s) {
+    strcpy(buf, s.buf);
+}
+
+int String::size() const{
+    return strlen(buf);
+}
+
 void String::swap(String &s) {
     std::swap(buf, s.buf);
 }
