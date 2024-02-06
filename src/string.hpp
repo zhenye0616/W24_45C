@@ -25,13 +25,13 @@ public:
     char &operator[](int index);
 
     // allow const indexing
-    const char &operator[](int index) const;
+    const char &operator[](int index) const;//done
 
     // returns the logical length of this string (# of chars up to '\0')
-    int size() const;
+    int size() const;//done
 
     // returns a reversal of this string, does not modify this string
-    String reverse() const;
+    String reverse() const;//done
 
     // returns index into this string for first occurrence of c
     int indexOf(char c) const;
@@ -40,12 +40,12 @@ public:
     int indexOf(String s) const;
 
     // relational operators for comparing this strings to another string
-    bool operator==(String s) const;
-    bool operator!=(String s) const;
-    bool operator>(String s) const;
-    bool operator<(String s) const;
-    bool operator<=(String s) const;
-    bool operator>=(String s) const;
+    bool operator==(String s) const; //done
+    bool operator!=(String s) const; //done
+    bool operator>(String s) const;  //done
+    bool operator<(String s) const;  //done
+    bool operator<=(String s) const; //done
+    bool operator>=(String s) const; //done
 
     // concatenate this and s to form a return string
     String operator+(String s) const;
@@ -61,7 +61,7 @@ public:
     void read(std::istream &in);
 
     // destructor for this string
-    ~String();
+    ~String();//done
 
     bool in_bounds(int i) const {
         return i >= 0 && i < strlen(buf);

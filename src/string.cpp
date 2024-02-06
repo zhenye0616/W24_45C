@@ -17,8 +17,10 @@ String::String(const char *s) {
 }
 
 String::String(const String &s) {
+    buf = new char[String::strlen(s.buf) + 1];
     strcpy(buf, s.buf);
 }
+ 
 
 int String::size() const{
     return strlen(buf);
@@ -41,6 +43,20 @@ const char &String::operator[](int index) const {
     return buf[index];
 }
 
+char &String::operator[](int index) {
+    if (index < 0 || index >= strlen(buf)) {
+        throw std::out_of_range("Index out of bounds in String::operator[]");
+    }
+    return buf[index];
+}
+
+
+String String::reverse() const{
+    int length = strlen(buf); //potential bug
+    String reversal(length+1);
+    String::reverse_cpy(reversal.buf, buf);
+    return reversal;                        
+}
 
 
 //static methods:
@@ -172,9 +188,102 @@ const char* String::strstr(const char* haystack, const char* needle) {
         return nullptr; // Substring not found
     }
 
+// Comparison operators
+bool String::operator==(const String s) const {
+    return String::strcmp(buf, s.buf) == 0;
+}
+
+bool String::operator!=(const String s) const {
+    return String::strcmp(buf, s.buf) != 0;
+}
+
+bool String::operator>(const String s) const {
+    return String::strcmp(buf, s.buf) > 0;
+}
+
+bool String::operator<(const String s) const {
+    return String::strcmp(buf, s.buf) < 0;
+}
+
+bool String::operator<=(const String s) const {
+    return String::strcmp(buf, s.buf) <= 0;
+}
+
+bool String::operator>=(const String s) const {
+    return String::strcmp(buf, s.buf) >= 0;
+}
 
 
 
+void String::read(std::istream &in) {
+    std::string temp;
+    in >> temp;
+    delete[] buf;
+    buf = new char[temp.length() + 1];
+    strcpy(buf, temp.c_str());
+}
 
+std::ostream &operator <<(std::ostream &out, const String s){
+    s.print(out);
+    return out;
+}
 
+std::istream &operator>>(std::istream &in, String &s) {
+    s.read(in);
+    return in;
+}
+
+void String::print(std::ostream &out) const {
+    out << buf;
+}
+
+int String::indexOf(char c) const{
+    // Use the static strchr function to find 'c' in 'buf'
+    const char* found = strchr(buf, c);
+    if (found) {
+        // If found, calculate the index
+        return found - buf;
+    } else {
+        // Return -1 if the character is not found
+        return -1;
+    }
+}
+
+// Find the first occurrence of a String in the string
+int String::indexOf(String s) const{
+    // Use the static strstr function to find 's' in 'buf'
+    const char* found = strstr(buf, s.buf);
+    if (found) {
+        // If found, calculate the index
+        return found - buf;
+    } else {
+        // Return -1 if the substring is not found
+        return -1;
+    }
+}
+
+// Concatenation operator
+String String::operator+(const String s) const {
+    int newLength = strlen(buf) + strlen(s.buf); // Calculate total length
+    String newString(newLength); // Create a new string with enough space
+    strcpy(newString.buf, buf); // Copy current string to new string
+    strcat(newString.buf, s.buf); // Concatenate the argument string
+    return newString; // Return the concatenated string
+}
+
+String &String::operator+=(const String s) {
+    int newLength = strlen(buf) + strlen(s.buf);
+    char* newBuf = new char[newLength + 1]; // Allocate new buffer
+    strcpy(newBuf, buf); // Copy current content to new buffer
+    strcat(newBuf, s.buf); // Append argument content
+    delete[] buf; // Free old buffer
+    buf = newBuf; // Replace with new buffer
+    return *this; // Return the current object
+}
+
+//private constructor
+String::String(int length) {
+    buf = new char[length + 1];
+    buf[length] = '\0';  // Ensure the string is null-terminated
+}
 
