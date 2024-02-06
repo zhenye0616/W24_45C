@@ -6,10 +6,10 @@
 class String {
 public:
     // constructs this string from a C string, defaults to empty string
-    explicit String(const char *s = "");
+    explicit String(const char *s = ""); //done
 
     // construct this string as a copy of string s
-    String(const String &s);
+    String(const String &s); //done
 
     // construct this string by moving from string s
     // String(String &&s);
@@ -69,17 +69,17 @@ public:
 
     // These static helper methods will ultimately be changed to private,
     // but are made public so that you (and the autograder) can test them.
-    static int strlen(const char *s);
-    static char *strcpy(char *dest, const char *src);
+    static int strlen(const char *s);//done
+    static char *strcpy(char *dest, const char *src);//done
     static char *strdup(const char *src);
-    static char *strncpy(char *dest, const char *src, int n);
-    static char *strcat(char *dest, const char *src);
-    static char *strncat(char *dest, const char *src, int n);
-    static int strcmp(const char *left, const char *right);
-    static int strncmp(const char *left, const char *right, int n);
-    static void reverse_cpy(char *dest, const char *src);
-    static const char *strchr(const char *str, char c);
-    static const char *strstr(const char *haystack, const char *needle);
+    static char *strncpy(char *dest, const char *src, int n);//done
+    static char *strcat(char *dest, const char *src);//done
+    static char *strncat(char *dest, const char *src, int n);//done
+    static int strcmp(const char *left, const char *right);//done
+    static int strncmp(const char *left, const char *right, int n);//done
+    static void reverse_cpy(char *dest, const char *src);//done
+    static const char *strchr(const char *str, char c);//done
+    static const char *strstr(const char *haystack, const char *needle);//done
 
 private:
     char *buf;  // array for the characters in this String
