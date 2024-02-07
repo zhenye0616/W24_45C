@@ -224,7 +224,7 @@ void String::read(std::istream &in) {
     strcpy(buf, temp.c_str());
 }
 
-std::ostream &operator <<(std::ostream &out, const String s){
+std::ostream &operator <<(std::ostream &out, const String&s){
     s.print(out);
     return out;
 }
