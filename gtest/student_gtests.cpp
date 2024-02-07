@@ -33,21 +33,53 @@ TEST(StringFunction, strdup) {
 
 
 TEST(StringFunction, strncpy) {
-    char destination[10]; // Initialize a destination buffer
-    const char* source = "Hello, World!";
-    size_t n = 5; // Maximum number of characters to copy
-    strncpy(destination, source, n);
-    destination[n] = '\0'; // Null-terminate the destination string
-    EXPECT_STREQ(destination, "Hello"); // Compare as C-strings
-    std::cout << "Destination: " << destination << std::endl;
+    char dest[10] = "";
+    const char* src1 = "";
+    EXPECT_EQ(String::strncpy(dest, src1, 5), dest);
+    EXPECT_STREQ(dest, "");
+
+    const char* src2 = "Hello World!";
+    EXPECT_EQ(String::strncpy(dest, src2, 5), dest);
+    EXPECT_STREQ(dest, "Hello");
+
+    char dest1[10] = "hello";
+    EXPECT_EQ(String::strncpy(dest1, src1, 5), dest1);
+    EXPECT_STREQ(dest1, "hello");
+
+    const char* src3 = "hello";
+    EXPECT_EQ(String::strncpy(dest1, src3, 5), dest1);
+    EXPECT_STREQ(dest1, "hello");
+
+    char dest2[15] = "Hello World!";
+    EXPECT_EQ(String::strncpy(dest2, src2, 5), dest2);
+    EXPECT_STREQ(dest2, "Hello");
+
+    const char* src4 = "hi";
+    EXPECT_EQ(String::strncpy(dest1, src4, 5), dest1);
+    EXPECT_STREQ(dest1, "hi");
+
+    char str1[] = "To be or not to be";
+    char result[10];
+    char enough_res[30];
+    EXPECT_EQ(String::strncpy(result, str1, 9), result);
+    EXPECT_STREQ(result, "To be or \0");
+
+    EXPECT_EQ(String::strncpy(result, str1, 5), result);
+    EXPECT_STREQ(result, "To be\0");
+
+    EXPECT_EQ(String::strncpy(enough_res, str1, 29), enough_res);
+    EXPECT_STREQ(enough_res, "To be or not to be");
 }
 
 TEST(StringFunction, strcat) {
-    char destination[20] = "Hello, ";
-    const char* source = "World!";
-    strcat(destination, source);
-    EXPECT_STREQ(destination, "Hello, World!");
+    char str[80];
+    String::strcpy(str, "these ");
+    String::strcat(str, "strings ");
+    String::strcat(str, "are ");
+    String::strcat(str, "concatenated.");
+    EXPECT_STREQ(str, "these strings are concatenated.");
 }
+
 
 TEST(StringFunction, strncat) {
     char str1[20];
