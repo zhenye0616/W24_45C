@@ -38,14 +38,15 @@ String &String::operator=(String s) {
 
 const char &String::operator[](int index) const {
     if (!in_bounds(index)) {
-        throw std::out_of_range("Index out of bounds");
+        cout << "Index out of bounds" << endl;
     }
     return buf[index];
 }
 
 char &String::operator[](int index) {
+    cout << "Accessing index " << index << " in string of size " << strlen(buf) << endl;
     if (index < 0 || index >= strlen(buf)) {
-        throw std::out_of_range("Index out of bounds in String::operator[]");
+        cout << "Index out of bounds in String::operator[]" << endl;
     }
     return buf[index];
 }

@@ -29,6 +29,12 @@ void run_tests() {
     cout << "[]: " << firstString[firstString.size() - 1] << endl;
     cout << "[]: " << secondString[0] << endl;
     cout << "[]: " << secondString[secondString.size() - 1] << endl;
+    if (fifthString.size() > 0) {
+    cout << "[]: " << fifthString[0] << endl;
+} else {
+    cout << "fifthString is empty, cannot access index 0" << endl;
+}
+
     cout << "[]: " << fifthString[0] << endl;
     cout << "!=: " << (thirdString != thirdString) << endl;
     cout << "Enter a test string: ";
