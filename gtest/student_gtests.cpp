@@ -50,12 +50,14 @@ TEST(StringFunction, strcat) {
 }
 
 TEST(StringFunction, strncat) {
-    char destination[20] = "Hello, ";
-    const char* source = "World!";
-    size_t n = 3; // Maximum number of characters to concatenate
-    strncat(destination, source, n);
-    EXPECT_STREQ(destination, "Hello, Wor"); // Compare as C-strings
+    char str1[20];
+    char str2[20];
+    String::strcpy (str1, "To be ");
+    String::strcpy (str2, "or not to be");
+    String::strncat (str1, str2, 6);
+    EXPECT_STREQ(str1, "To be or not");
 }
+
 
 TEST(StringFunction, strcmp) {
     const char* str1 = "abc";
