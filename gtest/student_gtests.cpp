@@ -138,7 +138,6 @@ TEST(StringFunction, strstr) {
     // Additional checks for the complex case
     const char *res = String::strstr(str3, sub7);
     EXPECT_NE(res, nullptr);  // Ensure a match was found
-    cout << res << endl;  // For debugging: print the match
     EXPECT_EQ(strcmp(res, "hellhello world"), 0);  // Verify the match is correct
 }
 
