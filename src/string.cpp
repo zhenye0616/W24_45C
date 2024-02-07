@@ -38,7 +38,7 @@ String &String::operator=(String s) {
 
 const char &String::operator[](int index) const {
     if (!in_bounds(index)) {
-        cout << "Index out of bounds" << endl;
+        cout << "Error:Index out of bounds" << endl;
     }
     return buf[index];
 }
@@ -46,7 +46,7 @@ const char &String::operator[](int index) const {
 char &String::operator[](int index) {
     cout << "Accessing index " << index << " in string of size " << strlen(buf) << endl;
     if (index < 0 || index >= strlen(buf)) {
-        cout << "Index out of bounds in String::operator[]" << endl;
+        cout << "Error:Index out of bounds in String::operator[]" << endl;
     }
     return buf[index];
 }
@@ -190,27 +190,27 @@ const char* String::strstr(const char* haystack, const char* needle) {
     }
 
 // Comparison operators
-bool String::operator==(const String s) const {
+bool String::operator==(const String &s) const {
     return String::strcmp(buf, s.buf) == 0;
 }
 
-bool String::operator!=(const String s) const {
+bool String::operator!=(const String &s) const {
     return String::strcmp(buf, s.buf) != 0;
 }
 
-bool String::operator>(const String s) const {
+bool String::operator>(const String &s) const {
     return String::strcmp(buf, s.buf) > 0;
 }
 
-bool String::operator<(const String s) const {
+bool String::operator<(const String &s) const {
     return String::strcmp(buf, s.buf) < 0;
 }
 
-bool String::operator<=(const String s) const {
+bool String::operator<=(const String &s) const {
     return String::strcmp(buf, s.buf) <= 0;
 }
 
-bool String::operator>=(const String s) const {
+bool String::operator>=(const String &s) const {
     return String::strcmp(buf, s.buf) >= 0;
 }
 
@@ -264,7 +264,7 @@ int String::indexOf(String s) const{
 }
 
 // Concatenation operator
-String String::operator+(const String s) const {
+String String::operator+(const String &s) const {
     int newLength = strlen(buf) + strlen(s.buf); // Calculate total length
     String newString(newLength); // Create a new string with enough space
     strcpy(newString.buf, buf); // Copy current string to new string
@@ -272,7 +272,7 @@ String String::operator+(const String s) const {
     return newString; // Return the concatenated string
 }
 
-String &String::operator+=(const String s) {
+String &String::operator+=(const String &s) {
     int newLength = strlen(buf) + strlen(s.buf);
     char* newBuf = new char[newLength + 1]; // Allocate new buffer
     strcpy(newBuf, buf); // Copy current content to new buffer
