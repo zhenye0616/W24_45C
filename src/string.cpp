@@ -38,7 +38,7 @@ String &String::operator=(String s) {
 
 const char &String::operator[](int index) const {
     if (!in_bounds(index)) {
-        cout << "Error:Index out of bounds" << endl;
+        cout << "ERROR:Index out of bounds" << endl;
     }
     return buf[index];
 }
@@ -46,7 +46,7 @@ const char &String::operator[](int index) const {
 char &String::operator[](int index) {
     cout << "Accessing index " << index << " in string of size " << strlen(buf) << endl;
     if (index < 0 || index >= strlen(buf)) {
-        cout << "Error:Index out of bounds in String::operator[]" << endl;
+        cout << "ERROR:Index out of bounds in String::operator[]" << endl;
     }
     return buf[index];
 }
@@ -251,7 +251,7 @@ int String::indexOf(char c) const{
 }
 
 // Find the first occurrence of a String in the string
-int String::indexOf(String s) const{
+int String::indexOf(const String&s) const{
     // Use the static strstr function to find 's' in 'buf'
     const char* found = strstr(buf, s.buf);
     if (found) {
