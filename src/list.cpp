@@ -102,17 +102,16 @@ list::Node* list::reverse(Node* head){
 
 list::Node* list::append(Node* lhs, Node* rhs) {
     if (lhs == nullptr) {
-        return rhs;
+        return copy(rhs);
     }
-    if (rhs == nullptr) {
-        return lhs;
-    }
-    Node* lastNode = nullptr;
-    for (lastNode = lhs; lastNode->next != nullptr; lastNode = lastNode->next) {
-    }
-    lastNode->next = rhs;
-    return lhs;
+    
+    Node* newHead = copy(lhs); 
+    Node* lastNode = last(newHead);
+    lastNode->next = copy(rhs); 
+    
+    return newHead;
 }
+
 
 int list::index(Node* head, Node* node){
     int count = 0;

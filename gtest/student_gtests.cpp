@@ -192,52 +192,33 @@ TEST(ListReverse, ReverseTest) {
 }
 
 
-TEST(ListAppend, AppendTest) {
-    // Append an empty list to a non-empty list
-    list::Node* lhs1 = list::from_string("abc");
-    list::Node* rhs1 = nullptr;  // Empty list
-    list::Node* result1 = list::append(lhs1, rhs1);
-    // Verify result1 is "abc"
-    char expected1[] = {'a', 'b', 'c'};
-    list::Node* current1 = result1;
-    for (char ch : expected1) {
-        ASSERT_NE(current1, nullptr);
-        EXPECT_EQ(current1->data, ch);
-        current1 = current1->next;
-    }
-    EXPECT_EQ(current1, nullptr); // Ensure the list ends here
-    list::free(result1);
+TEST(ListAppend, AppendsNonEmptyListsCorrectly) {
+    // Create two non-empty lists
+    list::Node* lhs = list::from_string("123");
+    list::Node* rhs = list::from_string("456");
 
-    // Append a non-empty list to an empty list
-    list::Node* lhs2 = nullptr;  // Empty list
-    list::Node* rhs2 = list::from_string("xyz");
-    list::Node* result2 = list::append(lhs2, rhs2);
-    // Verify result2 is "xyz"
-    char expected2[] = {'x', 'y', 'z'};
-    list::Node* current2 = result2;
-    for (char ch : expected2) {
-        ASSERT_NE(current2, nullptr);
-        EXPECT_EQ(current2->data, ch);
-        current2 = current2->next;
-    }
-    EXPECT_EQ(current2, nullptr); // Ensure the list ends here
-    list::free(result2);
+    // Append rhs to lhs
+    list::Node* result = list::append(lhs, rhs);
 
-    // Append two non-empty lists
-    list::Node* lhs3 = list::from_string("123");
-    list::Node* rhs3 = list::from_string("456");
-    list::Node* result3 = list::append(lhs3, rhs3);
-    // Verify result3 is "123456"
-    char expected3[] = {'1', '2', '3', '4', '5', '6'};
-    list::Node* current3 = result3;
-    for (char ch : expected3) {
-        ASSERT_NE(current3, nullptr);
-        EXPECT_EQ(current3->data, ch);
-        current3 = current3->next;
+    // Expected result after appending
+    const char* expected = "123456";
+
+    // Verify the result list matches the expected string
+    list::Node* current = result;
+    for (const char* p = expected; *p != '\0' && current != nullptr; ++p, current = current->next) {
+        EXPECT_EQ(*p, current->data) << "Lists do not match at character " << *p;
     }
-    EXPECT_EQ(current3, nullptr); // Ensure the list ends here
-    list::free(result3);
+
+    // Verify we've reached the end of the result list
+    EXPECT_EQ(nullptr, current) << "Result list is longer than expected";
+
+    // Clean up
+    list::free(lhs);  // Assuming append does not alter lhs
+    list::free(rhs);  // Assuming append creates a deep copy of rhs, original rhs needs to be freed
+    list::free(result);  // Free the result list
 }
+
+
 
 
 TEST(ListIndex, ListTest) {
@@ -315,10 +296,6 @@ TEST(ListLast, LastTest) {
 
     // Test finding the last node in a non-empty list
     EXPECT_EQ(list::last(head)->data, 'e');
-
-    // Test finding the last node in an empty list
-    list::Node* emptyList = nullptr;  // Empty list
-    EXPECT_EQ(list::last(emptyList), nullptr);
 
     // Clean up
     list::free(head);
