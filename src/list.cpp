@@ -37,9 +37,6 @@ void list::free(Node* head) {
 void list::print(std::ostream& out, Node* head){
     for(Node* temp = head; temp != nullptr; temp = temp -> next){
         out << temp -> data;
-        if (temp -> next != nullptr){
-            out << "->";
-        }
     }
 }
 
