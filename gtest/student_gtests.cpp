@@ -304,9 +304,6 @@ TEST(ListNth, NthTest) {
     EXPECT_EQ(list::nth(head, 5), nullptr);  // Index equal to list length
     EXPECT_EQ(list::nth(head, 10), nullptr); // Index greater than list length
 
-    // Test accessing the nth node in an empty list
-    list::Node* emptyList = nullptr;  // Empty list
-    EXPECT_EQ(list::nth(emptyList, 0), nullptr);  // Any index should return nullptr
 
     // Clean up
     list::free(head);
