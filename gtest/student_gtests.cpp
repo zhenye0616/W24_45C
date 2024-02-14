@@ -326,3 +326,37 @@ TEST(ListLast, LastTest) {
     // Clean up
     list::free(head);
 }
+
+TEST(ListFindList, FindListTest) {
+    // Create a test list (haystack)
+    list::Node* haystack = list::from_string("abcdef");  // Assuming from_string creates a list: a -> b -> c -> d -> e -> f
+
+    // Test finding a sublist at the beginning of the list
+    list::Node* needle1 = list::from_string("abc");
+    EXPECT_EQ(list::find_list(haystack, needle1), haystack);  // Should find at the beginning
+
+    // Test finding a sublist in the middle of the list
+    list::Node* needle2 = list::from_string("cde");
+    list::Node* expected2 = haystack->next->next;  // 'c' node
+    EXPECT_EQ(list::find_list(haystack, needle2), expected2);  // Should find in the middle
+
+    // Test finding a sublist at the end of the list
+    list::Node* needle3 = list::from_string("ef");
+    list::Node* expected3 = haystack->next->next->next->next;  // 'e' node
+    EXPECT_EQ(list::find_list(haystack, needle3), expected3);  // Should find at the end
+
+    // Test searching for a sublist that doesn't exist in the list
+    list::Node* needle4 = list::from_string("xyz");
+    EXPECT_EQ(list::find_list(haystack, needle4), nullptr);  // Should not find
+
+    // Test searching for an empty sublist in a non-empty list
+    list::Node* needle5 = nullptr;  // Empty sublist
+    EXPECT_EQ(list::find_list(haystack, needle5), haystack);  // Should find at the beginning (empty sublist)
+
+    // Clean up
+    list::free(haystack);
+    list::free(needle1);
+    list::free(needle2);
+    list::free(needle3);
+    list::free(needle4);
+}

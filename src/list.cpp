@@ -73,14 +73,22 @@ int list::compare(Node* lhs, Node* rhs){
 }
 
 int list::compare(Node* lhs, Node* rhs, int n) {
-    for (int i = 0; lhs != nullptr && rhs != nullptr && i < n; ++i, lhs = lhs->next, rhs = rhs->next) {
+    for (int i = 0; i < n; ++i) {
+        if (lhs == nullptr) {
+            return -1;
+        }
+        if (rhs == nullptr) {
+            return 1;
+        }
         if (lhs->data != rhs->data) {
-            // Return -1 if lhs data is less than rhs data, 1 otherwise
             return lhs->data < rhs->data ? -1 : 1;
         }
+        lhs = lhs->next;
+        rhs = rhs->next;
     }
     return 0;
 }
+
 
 list::Node* list::reverse(Node* head){
     Node* newHead = list::copy(head);
@@ -150,4 +158,25 @@ list::Node* list::last(Node* head) {
     for (; temp->next != nullptr; temp = temp->next) {
     }
     return temp;
+}
+
+list::Node* list::find_list(Node* haystack, Node* needle) {
+    // If needle is empty, it is considered found at the beginning of haystack
+    if (!needle) {
+        return haystack;
+    }
+
+    for (Node* haystackTemp = haystack; haystackTemp != nullptr; haystackTemp = haystackTemp->next) {
+        Node* currentHaystack = haystackTemp;
+        Node* currentNeedle = needle;
+
+        // Use a nested for loop to check if the sequence starting from currentHaystack matches needle
+        for (; currentNeedle != nullptr && currentHaystack != nullptr && currentHaystack->data == currentNeedle->data; currentHaystack = currentHaystack->next, currentNeedle = currentNeedle->next) {
+        }
+        
+        if (!currentNeedle) {
+            return haystackTemp;
+        }
+    }
+    return nullptr;
 }
