@@ -81,3 +81,73 @@ int list::compare(Node* lhs, Node* rhs, int n) {
     }
     return 0;
 }
+
+list::Node* list::reverse(Node* head){
+    Node* newHead = list::copy(head);
+    Node* prev = nullptr;
+    Node* next = nullptr; 
+    for (Node* current = newHead; current != nullptr; current = next){
+        next = current -> next;
+        current -> next = prev;
+        prev = current;
+    }
+    return prev;
+}
+
+
+list::Node* list::append(Node* lhs, Node* rhs) {
+    if (lhs == nullptr) {
+        return rhs;
+    }
+    if (rhs == nullptr) {
+        return lhs;
+    }
+    Node* lastNode = nullptr;
+    for (lastNode = lhs; lastNode->next != nullptr; lastNode = lastNode->next) {
+    }
+    lastNode->next = rhs;
+    return lhs;
+}
+
+int list::index(Node* head, Node* node){
+    int count = 0;
+    for (Node* temp = head; temp != nullptr; temp = temp -> next, count++){
+        if (temp == node){
+            return count;
+            }
+    }
+    return -1;
+}
+
+list::Node* list::find_char(Node* head, char c){
+    for (Node* temp = head; temp != nullptr; temp = temp -> next){
+        if (temp -> data == c){
+            return temp;
+        }
+    }
+    return nullptr;
+}
+
+list::Node* list::nth(Node* head, int n) {
+    Node* temp = head;
+    int index;
+
+    // Use a for loop to traverse up to the nth node or the end of the list
+    for (index = 0; temp != nullptr && index < n; index++) {
+        temp = temp->next;
+    }
+
+    // If index equals n, current points to the nth node; otherwise, n was out of bounds, and current is nullptr
+    return temp;
+}
+
+list::Node* list::last(Node* head) {
+    if (head == nullptr) {
+        return nullptr;
+    }
+
+    Node* temp = head;
+    for (; temp->next != nullptr; temp = temp->next) {
+    }
+    return temp;
+}
