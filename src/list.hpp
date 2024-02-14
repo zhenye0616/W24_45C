@@ -11,25 +11,25 @@ struct Node {
 };
 
 // returns a linked list from a c-string s
-Node* from_string(const char* s);
+Node* from_string(const char* s); //done tested
 
 // deletes all nodes of linked list
-void free(Node* head);
+void free(Node* head); //done
 
 // prints linked list to ostream out
-void print(std::ostream& out, Node* head);
+void print(std::ostream& out, Node* head); //done not tested 
 
 // returns an exact duplicate of linked list starting at head
-Node* copy(Node* head);
+Node* copy(Node* head); //done tested
 
 // similar to strcmp but for lists
-int compare(Node* lhs, Node* rhs);
+int compare(Node* lhs, Node* rhs); //done tested
 
 // similar to strncmp but for lists
-int compare(Node* lhs, Node* rhs, int n);
+int compare(Node* lhs, Node* rhs, int n);//done failed 
 
 // counts number of nodes in linked list
-int length(Node* head);
+int length(Node* head); //done tested
 
 // returns reversed copy of linked list
 Node* reverse(Node* head);

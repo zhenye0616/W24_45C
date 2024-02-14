@@ -34,6 +34,123 @@ TEST(ListTests, Length) {
 // Add remaining tests below. All tests should follow
 // the format of `TEST(ListTests, <TestName>){}`.
 
-TEST(ListTests, ReplaceMe) {
-    EXPECT_TRUE(false);
+
+TEST(ListCopy, CopyTest) {
+    // Test copying an empty list
+    Node* emptyList = list::from_string("");
+    Node* copiedEmptyList = list::copy(emptyList);
+    EXPECT_EQ(copiedEmptyList, nullptr);
+    list::free(emptyList);  // Clean up if from_string allocates for empty strings
+
+    // Test copying a list with a single item
+    Node* singleItemList = list::from_string("a");
+    Node* copiedSingleItemList = list::copy(singleItemList);
+    ASSERT_NE(copiedSingleItemList, nullptr);
+    EXPECT_EQ(copiedSingleItemList->data, 'a');
+    EXPECT_EQ(copiedSingleItemList->next, nullptr);
+    list::free(singleItemList);
+    list::free(copiedSingleItemList);
+
+    // Test copying a list with multiple items
+    Node* multiItemList = list::from_string("abc");  // Assuming from_string creates a node for each char
+    Node* copiedMultiItemList = list::copy(multiItemList);
+    Node* currentOriginal = multiItemList;
+    Node* currentCopy = copiedMultiItemList;
+    while (currentOriginal != nullptr) {
+        ASSERT_NE(currentCopy, nullptr);
+        EXPECT_EQ(currentCopy->data, currentOriginal->data);
+        currentOriginal = currentOriginal->next;
+        currentCopy = currentCopy->next;
+    }
+    EXPECT_EQ(currentCopy, nullptr);
+    list::free(multiItemList);
+    list::free(copiedMultiItemList);
+
+    // Test ensuring a deep copy
+    Node* originalList = list::from_string("xy");
+    Node* copiedList = list::copy(originalList);
+    originalList->data = 'a';  // Modify original list
+    originalList->next->data = 'b';
+    EXPECT_EQ(copiedList->data, 'x');  // Copied list should remain unchanged
+    EXPECT_EQ(copiedList->next->data, 'y');
+    list::free(originalList);
+    list::free(copiedList);
+}
+   
+
+
+
+TEST(ListCompare, CompareTest) {
+    // Equal lists
+    list::Node* lhs = list::from_string("abc");
+    list::Node* rhs = list::from_string("abc");
+    EXPECT_EQ(list::compare(lhs, rhs), 0);
+    list::free(lhs);
+    list::free(rhs);
+
+    // Unequal lists of equal length
+    lhs = list::from_string("abc");
+    rhs = list::from_string("abd");
+    EXPECT_LT(list::compare(lhs, rhs), 0);
+    list::free(lhs);
+    list::free(rhs);
+
+    // Lhs shorter than Rhs
+    lhs = list::from_string("ab");
+    rhs = list::from_string("abc");
+    EXPECT_LT(list::compare(lhs, rhs), 0);
+    list::free(lhs);
+    list::free(rhs);
+
+    // Lhs longer than Rhs
+    lhs = list::from_string("abcd");
+    rhs = list::from_string("abc");
+    EXPECT_GT(list::compare(lhs, rhs), 0);
+    list::free(lhs);
+    list::free(rhs);
+
+    // Empty lists
+    lhs = list::from_string("");
+    rhs = list::from_string("");
+    EXPECT_EQ(list::compare(lhs, rhs), 0);
+    list::free(lhs);
+    list::free(rhs);
+}
+
+TEST(ListCompareWithLimit, CompareNTest) {
+    // Equal lists within limit
+    list::Node* lhs = list::from_string("abc");
+    list::Node* rhs = list::from_string("abc");
+    EXPECT_EQ(list::compare(lhs, rhs, 3), 0);
+    list::free(lhs);
+    list::free(rhs);
+
+    // Unequal lists within limit
+    lhs = list::from_string("abc");
+    rhs = list::from_string("abd");
+    EXPECT_LT(list::compare(lhs, rhs, 3), 0);
+    list::free(lhs);
+    list::free(rhs);
+
+    // Equal lists exceeding limit
+    lhs = list::from_string("abcdef");
+    rhs = list::from_string("abcdef");
+    EXPECT_EQ(list::compare(lhs, rhs, 3), 0);
+    list::free(lhs);
+    list::free(rhs);
+
+    // Unequal lists exceeding limit
+    lhs = list::from_string("abcXYZ");
+    rhs = list::from_string("abcDEF");
+    EXPECT_EQ(list::compare(lhs, rhs, 3), 0);  // Equal within the limit
+    EXPECT_GT(list::compare(lhs, rhs, 6), 0);  // Unequal beyond the limit
+    list::free(lhs);
+    list::free(rhs);
+
+    // Lhs shorter than limit
+    lhs = list::from_string("ab");
+    rhs = list::from_string("abc");
+    EXPECT_LT(list::compare(lhs, rhs, 3), 0);  // Lhs is shorter, even within the limit
+    list::free(lhs);
+    list::free(rhs);
 }
