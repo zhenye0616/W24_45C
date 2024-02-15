@@ -92,9 +92,18 @@ int String::indexOf(char c) const {
 }
 
 int String::indexOf(const String &s) const {
+    if (s.head == nullptr) {
+        return 0;
+    }
+
     list::Node* sublistStart = list::find_list(head, s.head);
+    if (sublistStart == nullptr) {
+        return -1; 
+    }
+
     return list::index(head, sublistStart);
 }
+
 
 
 

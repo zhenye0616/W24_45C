@@ -70,22 +70,23 @@ int list::compare(Node* lhs, Node* rhs){
 }
 
 int list::compare(Node* lhs, Node* rhs, int n) {
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i, lhs = lhs ? lhs->next : nullptr, rhs = rhs ? rhs->next : nullptr) {
+        if (lhs == nullptr && rhs == nullptr) {
+            return 0;  // Both lists are equal and ended before n elements
+        }
         if (lhs == nullptr) {
-            return -1;
+            return -1;  // Lhs is shorter than rhs
         }
         if (rhs == nullptr) {
-            return 1;
+            return 1;   // Rhs is shorter than lhs
         }
         if (lhs->data != rhs->data) {
             return lhs->data < rhs->data ? -1 : 1;
         }
-        lhs = lhs->next;
-        rhs = rhs->next;
     }
-    return 0;
+    return 0;  // Both lists are equal up to n elements
 }
-
+//poteential bugs
 
 list::Node* list::reverse(Node* head){
     Node* newHead = list::copy(head);
@@ -113,14 +114,14 @@ list::Node* list::append(Node* lhs, Node* rhs) {
 }
 
 
-int list::index(Node* head, Node* node){
+int list::index(Node* head, Node* node) {
     int count = 0;
-    for (Node* temp = head; temp != nullptr; temp = temp -> next, count++){
-        if (temp == node){
+    for (Node* temp = head; temp != nullptr; temp = temp->next, ++count) {
+        if (temp == node) {
             return count;
-            }
+        }
     }
-    return 0; //potential bug
+    return -1;
 }
 
 list::Node* list::find_char(Node* head, char c){
