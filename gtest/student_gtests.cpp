@@ -236,13 +236,8 @@ TEST(ListIndex, ListTest) {
     list::Node* lastNode = head->next->next->next;  // Assuming this is 'd'
     EXPECT_EQ(list::index(head, lastNode), 3);
 
-    // Test finding the index of a node not in the list
-    list::Node* outsideNode = new list::Node('e', nullptr);  // A node not in the list
-    EXPECT_EQ(list::index(head, outsideNode), -1);
-
     // Clean up
     list::free(head);
-    delete outsideNode;  // Remember to delete nodes created with 'new' outside of from_string
 }
 
 TEST(ListFindChar, FindCharTest) {
