@@ -68,8 +68,9 @@ String String::reverse() const {
 
 
 char String::operator[](int index) const {
-    if (!in_bounds(index)) {
-        cout << "ERROR: Index out of bounds" << endl;
+    if (head == nullptr || !in_bounds(index)) {
+        std::cout << "ERROR: Index out of bounds" << std::endl;
+        return '\0';  // Return a null character or another placeholder
     }
     return list::nth(head, index)->data;
 }
