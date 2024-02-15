@@ -1,6 +1,7 @@
 #include "string.hpp"
 #include <iostream> 
 #include <compare>
+using namespace std;
 
 String::String(const char *s) {
     head = list::from_string(s);
@@ -68,7 +69,7 @@ String String::reverse() const {
 
 char String::operator[](int index) const {
     if (!in_bounds(index)) {
-        std::out << "ERROR: Index " << index << " out of bounds" << std::endl;
+        cout << "ERROR: Index out of bounds" << endl;
     }
     return list::nth(head, index)->data;
 }
