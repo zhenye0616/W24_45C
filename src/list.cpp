@@ -134,18 +134,15 @@ list::Node* list::find_char(Node* head, char c){
 }
 
 list::Node* list::nth(Node* head, int n) {
-    if (head == nullptr) {
-        return nullptr;
+    int count = 0;
+    for (Node* temp = head; temp != nullptr; temp = temp -> next) {
+        if (count == n){
+            return temp;
+        }
+        ++count;
     }
-    
-    Node* temp = head;
-    // Use a for loop to traverse up to the nth node or the end of the list
-    for (int index = 0; temp != nullptr && index < n; index++) {
-        temp = temp->next;
-    }
-
     // If index equals n, current points to the nth node; otherwise, n was out of bounds, and current is nullptr
-    return temp;
+    return nullptr;
 }
 
 list::Node* list::last(Node* head) {
