@@ -120,7 +120,7 @@ int list::index(Node* head, Node* node){
             return count;
             }
     }
-    return -1;
+    return 0; //potential bug
 }
 
 list::Node* list::find_char(Node* head, char c){

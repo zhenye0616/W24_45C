@@ -67,9 +67,13 @@ String String::reverse() const {
 
 
 char String::operator[](int index) const {
-    if (!in_bounds(index)) throw std::out_of_range("Index out of bounds");
+    if (!in_bounds(index)) {
+        std::cerr << "ERROR: Index " << index << " out of bounds" << std::endl;
+        return '\0';  // Return a null character or another placeholder
+    }
     return list::nth(head, index)->data;
 }
+
 
 bool String::in_bounds(int index) const {
     int len = list::length(head); 
@@ -79,7 +83,7 @@ bool String::in_bounds(int index) const {
 int String::indexOf(char c) const {
     list::Node* node = list::find_char(head, c);
     if (node == nullptr) {
-        return -1;
+        return 0; //potential bug
     }
 
     int index = 0;
