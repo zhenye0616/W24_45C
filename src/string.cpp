@@ -153,13 +153,18 @@ void String::swap(String &s) {
 
 
 String String::operator+(const String &s) const {
-    String result;
+    String result; 
     result.head = list::copy(this->head);
-    list::Node* concatenatedList = list::append(result.head, s.head);
-    list::free(result.head);
-    result.head = concatenatedList;
+    list::Node* lastNode = list::last(result.head);
+
+    if (lastNode != nullptr) {
+        lastNode->next = list::copy(s.head);
+    } else {
+        result.head = list::copy(s.head);
+    }
     return result;
 }
+
 
 void String::read(std::istream &in) {
     string temp;
