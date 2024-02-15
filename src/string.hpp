@@ -15,10 +15,10 @@ public:
     String(const String &s); //done
 
     // construct this string by moving from string s
-    String(String &&s); 
+    String(String &&s); //done
 
     // swap this string with s
-    void swap(String &s);
+    void swap(String &s); //done
 
     // assignment operator from one string, s, to this string
     String &operator=(const String &s);//done
@@ -55,7 +55,7 @@ public:
     String operator+(const String &s) const;
 
     // concatenate s onto the end of this string
-    String &operator+=(const String &s);
+    String &operator+=(const String &s); //done
 
     // print this string, hint: use operator << to send buf to out
     void print(std::ostream &out) const;//done

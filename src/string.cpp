@@ -123,3 +123,30 @@ String& String::operator+=(const String &s) {
     }
     return *this;
 }
+
+
+String::String(String &&s) : head(s.head) {
+    s.head = nullptr; //
+}
+
+void String::swap(String &s) {
+    using std::swap;
+    swap(head, s.head);
+}
+
+
+String String::operator+(const String &s) const {
+    String result;
+    result.head = list::copy(this->head);
+    list::Node* concatenatedList = list::append(result.head, s.head);
+    list::free(result.head);
+    result.head = concatenatedList;
+    return result;
+}
+
+void String::read(std::istream &in) {
+    std::string temp;
+    std::getline(in, temp); 
+    list::free(head);
+    head = list::from_string(temp.c_str());
+}
