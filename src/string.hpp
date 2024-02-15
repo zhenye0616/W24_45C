@@ -39,11 +39,11 @@ public:
     String reverse() const; //done
 
     // returns index into this string for first occurrence of c
-    int indexOf(char c) const;
+    int indexOf(char c) const; //done
 
     // returns index into this string for first occurrence of s
-    int indexOf(const String &s) const;
-
+    int indexOf(const String &s) const; //done
+ 
     // compare this string with another string by equality
     // note: != is auto-generated since C++20
     bool operator==(const String &s) const;//done
@@ -70,7 +70,7 @@ private:
     list::Node* head;
 
     // private constructor that takes ownership of the given list
-    explicit String(list::Node* head);
+    explicit String(list::Node* head); //done
 };
 
 std::ostream &operator<<(std::ostream &out, const String &s); //done

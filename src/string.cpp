@@ -76,20 +76,21 @@ bool String::in_bounds(int index) const {
     return index >= 0 && index < len;
 }
 
+int String::indexOf(char c) const {
+    list::Node* node = list::find_char(head, c);
+    if (node == nullptr) {
+        return -1;
+    }
 
+    int index = 0;
+    for (list::Node* current = head; current != node; current = current->next, ++index);
+    return index;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+int String::indexOf(const String &s) const {
+    list::Node* sublistStart = list::find_list(head, s.head);
+    return list::index(head, sublistStart);
+}
 
 
 
@@ -110,4 +111,15 @@ std::istream &operator>>(std::istream &in, String &s) {
     in >> temp;
     s = String(temp.c_str());
     return in;
+}
+
+String& String::operator+=(const String &s) {
+    if (head == nullptr) {
+        head = list::copy(s.head);
+    } else {
+        list::Node* last = head;
+        for (; last->next != nullptr; last = last->next);
+        last->next = list::copy(s.head);
+    }
+    return *this;
 }
