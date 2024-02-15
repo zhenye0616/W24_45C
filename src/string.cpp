@@ -82,7 +82,7 @@ bool String::in_bounds(int index) const {
 
 int String::indexOf(char c) const {
     if (head == nullptr) {
-        return 0;
+        return -1;
     }
     list::Node* node = list::find_char(head, c);
     if (node == nullptr) {
@@ -161,8 +161,8 @@ String String::operator+(const String &s) const {
 }
 
 void String::read(std::istream &in) {
-    std::string temp;
-    std::getline(in, temp); 
-    list::free(head);
+    string temp;
+    in >> temp;
+    free(head);
     head = list::from_string(temp.c_str());
 }
