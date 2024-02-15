@@ -176,3 +176,4 @@ list::Node* list::find_list(Node* haystack, Node* needle) {
     }
     return nullptr;
 }
+

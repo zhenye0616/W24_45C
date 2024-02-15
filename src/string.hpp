@@ -9,10 +9,10 @@
 class String {
 public:
     // constructs this string from a C string, defaults to empty string
-    explicit String(const char *s = "");
+    explicit String(const char *s = ""); //done
 
     // construct this string as a copy of string s
-    String(const String &s);
+    String(const String &s); //done
 
     // construct this string by moving from string s
     String(String &&s);
