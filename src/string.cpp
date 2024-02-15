@@ -11,6 +11,10 @@ String::String(const String &s) {
 }
 
 
+String::String(list::Node* newHead) : head(newHead) {
+}
+
+
 String::~String() {
     list::free(head);
 }
@@ -19,13 +23,17 @@ void String::print(std::ostream &out) const {
     list::print(out, head);
 }
 
+
 std::ostream &operator<<(std::ostream &out, const String &s) {
     s.print(out);
     return out;  
 }
+
+
 int String::size() const {
     return list::length(head); 
 }
+
 
 String& String::operator=(String &&s) {
     if (this != &s) { // Self-assignment check
@@ -37,6 +45,7 @@ String& String::operator=(String &&s) {
 }
 
 
+
 String& String::operator=(const String &s) {
     if (this != &s) { // Self-assignment check
         list::Node* newHead = list::copy(s.head); // Deep copy the list
@@ -46,9 +55,42 @@ String& String::operator=(const String &s) {
     return *this;
 }
 
+
 bool String::operator==(const String &s) const {
     return list::compare(head, s.head) == 0; // Utilizes the compare function
 }
+
+
+String String::reverse() const {
+    return String(list::reverse(head)); // Utilizes the reverse function and private constructor
+}
+
+
+char String::operator[](int index) const {
+    if (!in_bounds(index)) throw std::out_of_range("Index out of bounds");
+    return list::nth(head, index)->data;
+}
+
+bool String::in_bounds(int index) const {
+    int len = list::length(head); 
+    return index >= 0 && index < len;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 std::strong_ordering String::operator<=>(const String &s) const {
@@ -61,4 +103,11 @@ std::strong_ordering String::operator<=>(const String &s) const {
     } else {
         return std::strong_ordering::equal;
     }
+}
+
+std::istream &operator>>(std::istream &in, String &s) {
+    std::string temp;
+    in >> temp;
+    s = String(temp.c_str());
+    return in;
 }
