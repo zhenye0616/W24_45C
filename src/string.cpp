@@ -83,7 +83,7 @@ bool String::in_bounds(int index) const {
 int String::indexOf(char c) const {
     list::Node* node = list::find_char(head, c);
     if (node == nullptr) {
-        return 0; //potential bug
+        return -1;
     }
 
     int index = 0;
