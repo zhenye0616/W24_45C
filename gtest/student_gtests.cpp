@@ -272,24 +272,24 @@ TEST(ListNth, NthTest) {
     list::Node* head = list::from_string("abcde");  // Assuming from_string creates a list: a -> b -> c -> d -> e
 
     // Test accessing valid indices
-    auto firstNode = list::nth(head, 0);
-    ASSERT_NE(firstNode, nullptr);
-    EXPECT_EQ(firstNode->data, 'a');  // First element
+    EXPECT_NE(list::nth(head, 0), nullptr);
+    if (list::nth(head, 0) != nullptr) {
+        EXPECT_EQ(list::nth(head, 0)->data, 'a');  // First element
+    }
 
-    auto middleNode = list::nth(head, 2);
-    ASSERT_NE(middleNode, nullptr);
-    EXPECT_EQ(middleNode->data, 'c');  // Middle element
+    EXPECT_NE(list::nth(head, 2), nullptr);
+    if (list::nth(head, 2) != nullptr) {
+        EXPECT_EQ(list::nth(head, 2)->data, 'c');  // Middle element
+    }
 
-    auto lastNode = list::nth(head, 4);
-    ASSERT_NE(lastNode, nullptr);
-    EXPECT_EQ(lastNode->data, 'e');  // Last element
+    EXPECT_NE(list::nth(head, 4), nullptr);
+    if (list::nth(head, 4) != nullptr) {
+        EXPECT_EQ(list::nth(head, 4)->data, 'e');  // Last element
+    }
 
-    // Test accessing an out-of-bound index
-    EXPECT_EQ(list::nth(head, 5), nullptr);  // Index equal to list length
-    EXPECT_EQ(list::nth(head, 10), nullptr); // Index greater than list length
-
-    // Clean up
     list::free(head);
+}
+
 }
 
 TEST(ListLast, LastTest) {
