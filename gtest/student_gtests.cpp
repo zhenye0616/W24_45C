@@ -267,16 +267,12 @@ TEST(ListFindChar, FindCharTest) {
     list::free(head);
 }
 TEST(ListNth, NthTest) {
-    list::Node* head = list::from_string("abcde");  // Assuming from_string creates a list: a -> b -> c -> d -> e
+    list::Node* head = list::from_string("abcde");
 
-    // Test accessing valid indices
     EXPECT_EQ(list::nth(head, 0)->data, 'a');  // First element
     EXPECT_EQ(list::nth(head, 2)->data, 'c');  // Middle element
     EXPECT_EQ(list::nth(head, 4)->data, 'e');  // Last element
 
-    // Since the behavior for out-of-bounds access is undefined, we do not test it
-
-    // Clean up
     list::free(head);
 }
 
