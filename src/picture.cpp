@@ -17,11 +17,10 @@ void Picture::add(const Shape& shape) {
     tail = newNode;
 }
 
-// Print all shapes in the picture
 void Picture::print_all(std::ostream& out) const {
     ListNode* current = head;
     while (current != nullptr) {
-        current->shape->print(out); 
+        current->shape->print(out);
         current = current->next;
     }
 }
