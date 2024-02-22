@@ -21,7 +21,7 @@ void Picture::add(const Shape& shape) {
 void Picture::print_all(std::ostream& out) const {
     ListNode* current = head;
     while (current != nullptr) {
-        current->shape->print(out);  // Assuming Shape has a print(std::ostream&) method
+        current->shape->print(out); 
         current = current->next;
     }
 }
@@ -31,7 +31,7 @@ Picture::~Picture() {
     ListNode* current = head;
     while (current != nullptr) {
         ListNode* next = current->next;
-        delete current->shape;  // Assuming Shape's destructor is virtual
+        delete current->shape; 
         delete current;
         current = next;
     }
@@ -70,8 +70,8 @@ Picture::Picture(Picture&& other) : head(other.head), tail(other.tail) {
 }
 
 Picture& Picture::operator=(const Picture& other) {
-    Picture temp(other);  // Use the copy constructor
-    this->swap(temp);  // Swap the contents of this object with the temporary
+    Picture temp(other); 
+    this->swap(temp);  
     return *this;
 }
 

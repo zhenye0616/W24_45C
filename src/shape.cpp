@@ -11,6 +11,5 @@ Shape::~Shape() {
     }
 
 void Shape::print(std::ostream& out) const {
-        out << "Shape Name: " << name << "\n";
-        out << "Center Position: (" << center.x << ", " << center.y << ")\n";
-    }
+    out << name << " at (" << center.x << ", " << center.y << ") area = " << area() << "\n";
+}

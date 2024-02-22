@@ -15,8 +15,6 @@ protected:
 
     Square(const Square& other) = default;
 
-    // You might also want to define a protected move constructor if needed
-    // Square(Square&& other) = default;
 };
 
 #endif // SQUARE_HPP
