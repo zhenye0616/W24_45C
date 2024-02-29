@@ -55,13 +55,17 @@ private:
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Matrix<T>& matrix) {
+    std::ostringstream temp;
+    temp << std::fixed << std::right << std::setprecision(2);
+
     for (int i = 0; i < matrix.num_rows(); ++i) {
         for (int j = 0; j < matrix.num_cols(); ++j) {
-            if (j > 0) out << ' ';
-            out << matrix[i][j];
+            temp << std::setw(8) << matrix[i][j];
         }
-        out << '\n';
+        temp << '\n';
     }
+
+    out << temp.str();
     return out;
 }
 
