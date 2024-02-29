@@ -78,12 +78,17 @@ private:
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Array<T>& array) {
+    std::ostringstream temp;
+    temp << std::fixed << std::right << std::setprecision(2);
+
     for (int i = 0; i < array.length(); ++i) {
-        if (i > 0) out << ' ';
-        out << array[i];
+        temp << std::setw(8) << array[i];
     }
+
+    out << temp.str();
     return out;
 }
+
 
 template <typename T>
 std::istream& operator>>(std::istream& in, Array<T>& array) {
