@@ -20,8 +20,8 @@ double average(const std::vector<int>& scores) {
 void Student::validate() const {
     auto is_score_valid = [](int score) { return score >= 0 && score <= 100; };
 
-    if (!std::ranges::all_of(quiz, is_score_valid) || 
-        !std::ranges::all_of(hw, is_score_valid) || 
+    if (!std::all_of(quiz.begin(), quiz.end(), is_score_valid) ||
+        !std::all_of(hw.begin(), hw.end(), is_score_valid) ||
         final_score < 0 || final_score > 100) {
         throw std::invalid_argument("Invalid scores found for student.");
     }
