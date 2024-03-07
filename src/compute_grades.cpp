@@ -93,7 +93,7 @@ std::istream& operator>>(std::istream& in, Student& s) {
     s.last_name.clear();
     s.quiz.clear();
     s.hw.clear();
-    s.final_score = 0.0;
+    s.final_score = 0;
 
     std::string line;
     // Read the name line
