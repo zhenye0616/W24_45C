@@ -82,6 +82,7 @@ std::strong_ordering Student::operator<=>(const Student& other) const {
 
 
 
+
 bool Student::operator==(const Student& other) const {
     return last_name == other.last_name && first_name == other.first_name;
 }
