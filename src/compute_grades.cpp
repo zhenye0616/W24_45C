@@ -46,8 +46,19 @@ void Student::compute_quiz_avg() {
 }
 
 
-void Student::compute_hw_avg() {
-    hw_avg = average(hw);
+void Student::compute_quiz_avg() {
+    if (quiz.empty()) {
+        quiz_avg = 0;
+    } else if (quiz.size() == 1) {
+        quiz_avg = quiz.front();
+    } else {
+        // Find the minimum quiz score
+        auto min_score = std::min_element(quiz.begin(), quiz.end());
+        // Compute the sum of quiz scores excluding the minimum score
+        int sum = std::accumulate(quiz.begin(), quiz.end(), 0) - *min_score;
+        // Compute the average
+        quiz_avg = sum / static_cast<int>(quiz.size() - 1);
+    }
 }
 
 void Student::compute_course_score() {
