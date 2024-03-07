@@ -70,17 +70,15 @@ void Student::compute_final_grade() {
 
 
 
-std::strong_ordering Student::operator<=>(const Student& other) const {
-    if (course_score < other.course_score) {
-        return std::strong_ordering::less;
-    } else if (course_score > other.course_score) {
-        return std::strong_ordering::greater;
-    } else {
-        return std::strong_ordering::equal;
+ std::strong_ordering Student::operator<=>(const Student& other) const {
+        auto last_name_comparison = last_name <=> other.last_name;
+        if (last_name_comparison != std::strong_ordering::equal) {
+            return last_name_comparison;
+        }
+
+        // Last names are equal, compare first names
+        return first_name <=> other.first_name;
     }
-}
-
-
 
 
 bool Student::operator==(const Student& other) const {
