@@ -70,12 +70,12 @@ void Student::compute_final_grade() {
 
 
 std::strong_ordering Student::operator<=>(const Student& other) const {
-    if (course_score < other.course_score) {
-        return std::strong_ordering::less;
-    } else if (course_score > other.course_score) {
-        return std::strong_ordering::greater;
+    if (last_name != other.last_name) {
+        return last_name <=> other.last_name;
+    } else if (first_name != other.first_name) {
+        return first_name <=> other.first_name;
     } else {
-        return std::strong_ordering::equal;
+        return course_score <=> other.course_score;
     }
 }
 

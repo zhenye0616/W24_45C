@@ -3,7 +3,7 @@
 #include <fstream>
 
 int main() {
-    std::ifstream gradebook_file("gradebook.txt")  
+    std::ifstream gradebook_file("gradebook.txt");  
     Gradebook b;
     gradebook_file >> b;
 
