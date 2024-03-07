@@ -10,6 +10,11 @@
 #include <sstream>
 
 
+double average(const std::vector<int>& scores) {
+    if (scores.empty()) return 0.0;
+    return static_cast<double>(std::accumulate(scores.begin(), scores.end(), 0)) / scores.size();
+}
+
 
 
 // Student class member functions
@@ -46,19 +51,8 @@ void Student::compute_quiz_avg() {
 }
 
 
-void Student::compute_quiz_avg() {
-    if (quiz.empty()) {
-        quiz_avg = 0;
-    } else if (quiz.size() == 1) {
-        quiz_avg = quiz.front();
-    } else {
-        // Find the minimum quiz score
-        auto min_score = std::min_element(quiz.begin(), quiz.end());
-        // Compute the sum of quiz scores excluding the minimum score
-        int sum = std::accumulate(quiz.begin(), quiz.end(), 0) - *min_score;
-        // Compute the average
-        quiz_avg = sum / static_cast<int>(quiz.size() - 1);
-    }
+void Student::compute_hw_avg() {
+    hw_avg = average(hw);
 }
 
 void Student::compute_course_score() {
@@ -158,7 +152,6 @@ std::istream& operator>>(std::istream& in, Student& s) {
 
     return in;
 }
-
 
 
 std::ostream& operator<<(std::ostream& out, const Student& s) {
