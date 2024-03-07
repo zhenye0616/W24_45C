@@ -128,25 +128,27 @@ std::istream& operator>>(std::istream& in, Student& s) {
     return in;
 }
 
+
 std::ostream& operator<<(std::ostream& out, const Student& s) {
-    // Write data in the specified format
-    out << "Name: " << s.first_name << " " << s.last_name << "\n"
-        << "HW Ave: " << std::fixed << s.hw_avg << "\n"
-        << "QZ Ave: " << std::fixed << s.quiz_avg << "\n"
-        << "Final: " << std::fixed <<  s.final_score << "\n"
-        << "Total: " << std::fixed << s.course_score << "\n"
-        << "Grade: " << s.course_grade << "\n\n";
+    // Write data in the specified format with left alignment and field width of 8
+    out << std::left << std::setw(8) << "Name: " << std::setw(0) << s.first_name << " " << s.last_name << "\n"
+        << std::setw(8) << "HW Ave: " << std::setw(0) << std::fixed << s.hw_avg << "\n"
+        << std::setw(8) << "QZ Ave: " << std::setw(0) << std::fixed << s.quiz_avg << "\n"
+        << std::setw(8) << "Final: " << std::setw(0) << std::fixed << s.final_score << "\n"
+        << std::setw(8) << "Total: " << std::setw(0) << std::fixed << s.course_score << "\n"
+        << std::setw(8) << "Grade: " << std::setw(0) << s.course_grade << "\n\n";
     return out;
 }
+
 
 
 
 // Gradebook class member functions
 
 void Gradebook::compute_grades() {
-    for (Student& student : students) {
+    std::for_each(students.begin(), students.end(), [](Student& student) {
         student.compute_grade();
-    }
+    });
 }
 
 void Gradebook::sort() {
