@@ -13,6 +13,9 @@ void split_odd_even(std::istream& numbers, std::ostream& odds, std::ostream& eve
     // Sort the vector
     std::sort(numbersVec.begin(), numbersVec.end());
 
+    // Flags to track whether odd numbers have been encountered
+    bool oddEncountered = false;
+
     // Iterate over the vector and write numbers to the respective streams
     std::for_each(numbersVec.begin(), numbersVec.end(), [&](int i) {
         if (i % 2 == 0) {
@@ -21,11 +24,12 @@ void split_odd_even(std::istream& numbers, std::ostream& odds, std::ostream& eve
         } else {
             // Write odd number followed by space
             odds << i << " ";
+            oddEncountered = true; // Set flag to true if odd number encountered
         }
     });
 
-    // If there are any odd numbers, append a newline at the end
-    if (!numbersVec.empty() && numbersVec.back() % 2 != 0) {
+    // If any odd numbers were encountered, append a newline at the end
+    if (oddEncountered) {
         odds << "\n";
     }
 }
