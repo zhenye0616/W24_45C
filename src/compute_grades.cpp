@@ -157,13 +157,14 @@ std::istream& operator>>(std::istream& in, Student& s) {
 std::ostream& operator<<(std::ostream& out, const Student& s) {
     // Write data in the specified format with left alignment and field width of 8
     out << std::left << std::setw(8) << "Name: " << std::setw(0) << s.first_name << " " << s.last_name << "\n"
-        << std::setw(8) << "HW Ave: " << std::setw(0) << std::fixed << s.hw_avg << "\n"
-        << std::setw(8) << "QZ Ave: " << std::setw(0) << std::fixed << s.quiz_avg << "\n"
-        << std::setw(8) << "Final: " << std::setw(0) << std::fixed << s.final_score << "\n"
-        << std::setw(8) << "Total: " << std::setw(0) << std::fixed << s.course_score << "\n"
-        << std::setw(8) << "Grade: " << std::setw(0) << s.course_grade << "\n\n";
+        << std::setw(8) << "HW Ave: " << std::setw(0) << static_cast<int>(s.hw_avg) << "\n"
+        << std::setw(8) << "QZ Ave: " << std::setw(0) << static_cast<int>(s.quiz_avg) << "\n"
+        << std::setw(8) << "Final: " << std::setw(0) << static_cast<int>(s.final_score) << "\n"
+        << std::setw(8) << "Total: " << std::setw(0) << static_cast<int>(s.course_score) << "\n"
+        << std::setw(8) << "Grade: " << std::setw(0) << s.course_grade << "\n";
     return out;
 }
+
 
 
 
