@@ -11,8 +11,8 @@
 
 // Helper function to calculate average of scores
 double average(const std::vector<int>& scores) {
-    if (scores.empty()) return 0.0;
-    return std::accumulate(scores.begin(), scores.end(), 0.0) / scores.size();
+    if (scores.empty()) return 0;
+    return std::accumulate(scores.begin(), scores.end(), 0) / scores.size();
 }
 
 // Student class member functions
@@ -35,7 +35,18 @@ void Student::compute_grade() {
 }
 
 void Student::compute_quiz_avg() {
-    quiz_avg = average(quiz);
+    if (quiz.empty()) {
+        quiz_avg = 0.0;
+    } else if (quiz.size() == 1) {
+        quiz_avg = quiz.front();
+    } else {
+        // Find the minimum quiz score
+        auto min_score = std::min_element(quiz.begin(), quiz.end());
+        // Compute the sum of quiz scores excluding the minimum score
+        double sum = std::accumulate(quiz.begin(), quiz.end(), 0.0) - *min_score;
+        // Compute the average
+        quiz_avg = sum / (quiz.size() - 1);
+    }
 }
 
 void Student::compute_hw_avg() {
@@ -131,17 +142,15 @@ std::istream& operator>>(std::istream& in, Student& s) {
 
 
 std::ostream& operator<<(std::ostream& out, const Student& s) {
-    // Write data in the specified format
-    out << std::fixed << std::setprecision(8); // Set precision to 6 decimal places
-    out << "Name: " << s.first_name << " " << s.last_name << "\n"
-        << "HW Ave: " << s.hw_avg << "\n" // Assuming hw_avg is a floating-point number
-        << "QZ Ave: " << s.quiz_avg << "\n" // Assuming quiz_avg is a floating-point number
-        << "Final: " << s.final_score << "\n" // Assuming final_score is a floating-point number
-        << "Total: " << s.course_score << "\n" // Assuming course_score is a floating-point number
-        << "Grade: " << s.course_grade << "\n\n";
+    // Write data in the specified format with left alignment and field width of 8
+    out << std::left << std::setw(8) << "Name: " << std::setw(0) << s.first_name << " " << s.last_name << "\n"
+        << std::setw(8) << "HW Ave: " << std::setw(0) << std::fixed << s.hw_avg << "\n"
+        << std::setw(8) << "QZ Ave: " << std::setw(0) << std::fixed << s.quiz_avg << "\n"
+        << std::setw(8) << "Final: " << std::setw(0) << std::fixed << s.final_score << "\n"
+        << std::setw(8) << "Total: " << std::setw(0) << std::fixed << s.course_score << "\n"
+        << std::setw(8) << "Grade: " << std::setw(0) << s.course_grade << "\n\n";
     return out;
 }
-
 
 
 
