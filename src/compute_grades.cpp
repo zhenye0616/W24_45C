@@ -43,18 +43,31 @@ void Student::compute_hw_avg() {
 }
 
 void Student::compute_course_score() {
-    // Assuming the weights are as follows: 40% quizzes, 40% homework, 20% final exam
-    course_score = quiz_avg * 0.4 + hw_avg * 0.4 + final_score * 0.2;
+    double hw_avg = !hw.empty() ? 
+                    std::accumulate(hw.begin(), hw.end(), 0.0) / hw.size() 
+                    : 0.0;
+
+    double weighted_score = (quiz_avg * 0.4) + (hw_avg * 0.3) + (final_score * 0.3);
+
+    course_score = std::round(weighted_score);
 }
 
 void Student::compute_final_grade() {
-    // Assign a letter grade based on the course score
-    if (course_score >= 90) course_grade = "A";
-    else if (course_score >= 80) course_grade = "B";
-    else if (course_score >= 70) course_grade = "C";
-    else if (course_score >= 60) course_grade = "D";
+    if (course_score >= 97) course_grade = "A+";
+    else if (course_score >= 93) course_grade = "A";
+    else if (course_score >= 90) course_grade = "A-";
+    else if (course_score >= 87) course_grade = "B+";
+    else if (course_score >= 83) course_grade = "B";
+    else if (course_score >= 80) course_grade = "B-";
+    else if (course_score >= 77) course_grade = "C+";
+    else if (course_score >= 73) course_grade = "C";
+    else if (course_score >= 70) course_grade = "C-";
+    else if (course_score >= 67) course_grade = "D+";
+    else if (course_score >= 63) course_grade = "D";
+    else if (course_score >= 60) course_grade = "D-";
     else course_grade = "F";
 }
+
 
 std::strong_ordering Student::operator<=>(const Student& other) const {
     if (course_score < other.course_score) {
@@ -118,10 +131,10 @@ std::istream& operator>>(std::istream& in, Student& s) {
 std::ostream& operator<<(std::ostream& out, const Student& s) {
     // Write data in the specified format
     out << "Name: " << s.first_name << " " << s.last_name << "\n"
-        << "HW Ave: " << std::fixed << std::setprecision(2) << s.hw_avg << "\n"
-        << "QZ Ave: " << std::fixed << std::setprecision(2) << s.quiz_avg << "\n"
-        << "Final: " << std::fixed << std::setprecision(2) << s.final_score << "\n"
-        << "Total: " << std::fixed << std::setprecision(2) << s.course_score << "\n"
+        << "HW Ave: " << std::fixed << s.hw_avg << "\n"
+        << "QZ Ave: " << std::fixed << s.quiz_avg << "\n"
+        << "Final: " << std::fixed <<  s.final_score << "\n"
+        << "Total: " << std::fixed << s.course_score << "\n"
         << "Grade: " << s.course_grade << "\n\n";
     return out;
 }
@@ -140,11 +153,13 @@ void Gradebook::sort() {
     std::sort(students.begin(), students.end());
 }
 
+
 void Gradebook::validate() const {
-    for (const Student& student : students) {
+    std::for_each(students.begin(), students.end(), [](const Student& student) {
         student.validate();
-    }
+    });
 }
+
 
 std::ostream& operator<<(std::ostream& out, const Gradebook& gb) {
     for (const Student& student : gb.students) {
