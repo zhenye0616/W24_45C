@@ -5,42 +5,50 @@
 #include <algorithm>
 #include <iterator>
 #include <cctype>
+#include <vector>
 
 // Function to convert a string to lowercase
 std::string to_lowercase(const std::string& str) {
     std::string lower_str;
-    std::transform(str.begin(), str.end(), std::back_inserter(lower_str), ::tolower);
+    std::transform(str.begin(), str.end(), std::back_inserter(lower_str),
+                   [](unsigned char c) { return std::tolower(c); });
     return lower_str;
 }
 
 // Function to load stopwords into a set
 std::set<std::string> load_stopwords(std::istream& stopwords_stream) {
     std::set<std::string> stopwords;
-    std::string word;
-    while (stopwords_stream >> word) {
-        stopwords.insert(to_lowercase(word));
-    }
+    std::istream_iterator<std::string> it(stopwords_stream);
+    std::istream_iterator<std::string> end;
+    std::vector<std::string> words(it, end);
+    
+    std::transform(words.begin(), words.end(), std::inserter(stopwords, stopwords.end()),
+                   [](const std::string& word) { return to_lowercase(word); });
+    
     return stopwords;
 }
+
+// Remaining implementations of count_words and output_word_counts go here.
+
 
 // Function to count the frequency of words in the document
 std::map<std::string, int> count_words(std::istream& document_stream, const std::set<std::string>& stopwords) {
     std::map<std::string, int> word_count;
-    std::string word;
-    while (document_stream >> word) {
-        word = to_lowercase(word);
-        // Remove punctuation from the end of the word
-        word.erase(std::remove_if(word.begin(), word.end(), ::ispunct), word.end());
-        if (stopwords.find(word) == stopwords.end()) {
-            ++word_count[word];
+    std::istream_iterator<std::string> it(document_stream);
+    std::istream_iterator<std::string> eof;
+    std::ranges::for_each(it, eof, [&](const std::string& word) {
+        std::string lw = to_lowercase(word);
+        lw.erase(std::remove_if(lw.begin(), lw.end(), ispunct), lw.end());
+        if (!stopwords.contains(lw)) {
+            word_count[lw]++;
         }
-    }
+    });
     return word_count;
 }
 
 // Function to output the word counts to a file
 void output_word_counts(const std::map<std::string, int>& word_counts, std::ostream& output_stream) {
-    for (const auto& [word, count] : word_counts) {
-        output_stream << word << " " << count << '\n';
-    }
+    std::ranges::for_each(word_counts, [&](const auto& pair) {
+        output_stream << pair.first << " " << pair.second << '\n';
+    });
 }
