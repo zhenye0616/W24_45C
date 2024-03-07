@@ -9,11 +9,8 @@
 #include <ranges>
 #include <sstream>
 
-// Helper function to calculate average of scores
-double average(const std::vector<int>& scores) {
-    if (scores.empty()) return 0;
-    return std::accumulate(scores.begin(), scores.end(), 0) / scores.size();
-}
+
+
 
 // Student class member functions
 
@@ -36,18 +33,18 @@ void Student::compute_grade() {
 
 void Student::compute_quiz_avg() {
     if (quiz.empty()) {
-        quiz_avg = 0.0;
+        quiz_avg = 0;
     } else if (quiz.size() == 1) {
         quiz_avg = quiz.front();
     } else {
         // Find the minimum quiz score
         auto min_score = std::min_element(quiz.begin(), quiz.end());
         // Compute the sum of quiz scores excluding the minimum score
-        double sum = std::accumulate(quiz.begin(), quiz.end(), 0.0) - *min_score;
-        // Compute the average
-        quiz_avg = sum / (quiz.size() - 1);
+        int sum = std::accumulate(quiz.begin(), quiz.end(), 0) - *min_score;
+        quiz_avg = sum / static_cast<int>(quiz.size() - 1);
     }
 }
+
 
 void Student::compute_hw_avg() {
     hw_avg = average(hw);
@@ -108,8 +105,19 @@ std::istream& operator>>(std::istream& in, Student& s) {
     // Read the name line
     if (!std::getline(in, line) || !line.starts_with("Name"))
         return in;
+    
+    // Extract first and last names
     std::istringstream name_stream(line.substr(5));
-    name_stream >> s.first_name >> s.last_name; // Assuming two names only; if more, logic should be changed
+    name_stream >> s.first_name;
+    // Read remaining as last names
+    std::string last_name_part;
+    while (name_stream >> last_name_part) {
+        s.last_name += last_name_part + " ";
+    }
+    // Remove the trailing space
+    if (!s.last_name.empty()) {
+        s.last_name.pop_back();
+    }
 
     // Read the quiz scores line
     if (!std::getline(in, line) || !line.starts_with("Quiz"))
@@ -139,6 +147,7 @@ std::istream& operator>>(std::istream& in, Student& s) {
 
     return in;
 }
+
 
 
 std::ostream& operator<<(std::ostream& out, const Student& s) {
