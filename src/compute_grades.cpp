@@ -7,6 +7,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <ranges>
+#include <fstream>
 #include <sstream>
 
 
@@ -189,11 +190,24 @@ void Gradebook::validate() const {
 }
 
 
+
 std::ostream& operator<<(std::ostream& out, const Gradebook& gb) {
-    std::for_each(gb.students.begin(), gb.students.end(), [&](const Student& student) {
-        out << student;
-    });
-    return out;
+    // Open the file "course_grades.txt" for writing
+    std::ofstream outputFile("course_grades.txt");
+    if (!outputFile.is_open()) {
+        std::cerr << "Error opening file course_grades.txt for writing." << std::endl;
+        return out; // Return the original output stream if file opening fails
+    }
+
+    // Iterate over each student in the Gradebook and write them to the file
+    for (const Student& student : gb.students) {
+        outputFile << student; // Use existing operator<< for Student
+    }
+
+    // Close the file stream
+    outputFile.close();
+
+    return out; // Return the original output stream
 }
 
 
