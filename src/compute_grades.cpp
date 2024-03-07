@@ -69,15 +69,17 @@ void Student::compute_final_grade() {
 }
 
 
+
 std::strong_ordering Student::operator<=>(const Student& other) const {
-    if (last_name != other.last_name) {
-        return last_name <=> other.last_name;
-    } else if (first_name != other.first_name) {
-        return first_name <=> other.first_name;
+    if (course_score < other.course_score) {
+        return std::strong_ordering::less;
+    } else if (course_score > other.course_score) {
+        return std::strong_ordering::greater;
     } else {
-        return course_score <=> other.course_score;
+        return std::strong_ordering::equal;
     }
 }
+
 
 
 bool Student::operator==(const Student& other) const {
@@ -164,18 +166,18 @@ void Gradebook::validate() const {
 
 
 std::ostream& operator<<(std::ostream& out, const Gradebook& gb) {
-    for (const Student& student : gb.students) {
+    std::for_each(gb.students.begin(), gb.students.end(), [&](const Student& student) {
         out << student;
-    }
+    });
     return out;
 }
 
 
 std::istream& operator>>(std::istream& in, Gradebook& gb) {
+    gb.students.clear();
     Student s;
-    while (in >> s) {  // Uses the overloaded operator>> for Student
+    while (in >> s) {
         gb.students.push_back(s);
-        // Clear the student data to prepare for the next record
         s = Student();
     }
     return in;
