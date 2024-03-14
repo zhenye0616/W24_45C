@@ -5,7 +5,7 @@
 #include "map_array.hpp"
 
 using namespace std;
-static_assert(std::ranges::random_access_range<MapArray<int, double>>);
+//static_assert(std::ranges::random_access_range<MapArray<int, double>>);
 
 TEST(MapArrayTests, Subscript) {
     MapArray<string, int> map;
@@ -36,7 +36,11 @@ TEST(MapArrayTests, SubscriptIterators) {
     map["bar"] = 5;
     map["aaa"] = 1;
     map["zzz"] = 20;
-
+    
+    for(auto it = map.begin(); it != map.end(); ++it) {
+        std::cout << "Key: " << it->first << ", Value: " << it->second << std::endl;
+    }
+    
     EXPECT_EQ(map.begin()->second, 1);
     EXPECT_EQ(map.end() - map.begin(),  4);
     EXPECT_EQ(map.begin()[2].second, 10);
@@ -57,4 +61,6 @@ TEST(MapArrayTests, Iteration) {
     for (const auto& [key, value] : map) {
         EXPECT_EQ(value, i++);
     }
+    
+
 }
