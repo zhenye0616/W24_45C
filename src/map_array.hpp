@@ -14,7 +14,7 @@ public:
     public:
         // Iterator traits:
         using iterator_category = std::random_access_iterator_tag;
-        using value_type = std::pair<const Key, Value>;
+        using value_type = std::pair<Key, Value>;
         using difference_type = std::ptrdiff_t;
         using pointer = value_type*;
         using reference = value_type&;
@@ -32,12 +32,12 @@ public:
             
         ArrayIterator operator++(int){
             ArrayIterator temp= *this;
-            ++(*this);
+            ptr++;
             return temp;
         }
         ArrayIterator operator--(int){
             ArrayIterator temp= *this;
-            --(*this);
+            ptr--;
             return temp;
         }
         ArrayIterator& operator+=(difference_type d){
@@ -48,14 +48,14 @@ public:
             ptr -= d;
             return *this;
         }
-        friend ArrayIterator operator+(ArrayIterator it, difference_type d){               ArrayIterator temp = it;
-            temp += d;
-            return temp;
+        friend ArrayIterator operator+(ArrayIterator it, difference_type d){               
+           return ArrayIterator(it.ptr + d); 
+        }
+        friend ArrayIterator operator+(difference_type d,ArrayIterator it){               
+           return ArrayIterator(it.ptr + d); 
         }
         friend ArrayIterator operator-(ArrayIterator it, difference_type d){
-            ArrayIterator temp = it;
-            temp -= d;
-            return temp;
+           return ArrayIterator(it.ptr - d); 
         }
         friend difference_type operator-(ArrayIterator lhs, ArrayIterator rhs)         {
             return lhs.ptr - rhs.ptr;
@@ -88,30 +88,19 @@ public:
     }
     
     Value& operator[](const Key& key) {
-    // Try to find the key in the existing data
-    auto it = std::find_if(data.begin(), data.end(),
-                           [&](const auto& pair) { return pair.first == key; });
-    
-    // If the key is found, return a reference to its value
-    if (it != data.end()) {
+    auto it = std::lower_bound(data.begin(), data.end(), std::make_pair(key, Value{}),
+                               [](const auto& pair, const auto& keyValPair) {
+                                   return pair.first < keyValPair.first;
+                               });
+    if (it != data.end() && it->first == key) {
         return it->second;
     } else {
-        // If the key is not found, add a new pair with a default-constructed value
-        data.emplace_back(key, Value{});
-        // Sort the container to maintain order
-        std::sort(data.begin(), data.end(), [](const auto& a, const auto& b) {
-            return a.first < b.first;
-        });
-        // After sorting, find the newly added pair again to return a valid reference
-        it = std::find_if(data.begin(), data.end(),
-                         [&](const auto& pair) { return pair.first == key; });
-        return it->second;
+        return data.insert(it, std::make_pair(key, Value{}))->second;
     }
+
+
 }
 
-
-
-    
 
 private:
     std::vector<std::pair<Key, Value>> data;

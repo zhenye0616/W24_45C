@@ -5,7 +5,7 @@
 #include "map_array.hpp"
 
 using namespace std;
-//static_assert(std::ranges::random_access_range<MapArray<int, double>>);
+static_assert(std::ranges::random_access_range<MapArray<int, double>>);
 
 TEST(MapArrayTests, Subscript) {
     MapArray<string, int> map;
